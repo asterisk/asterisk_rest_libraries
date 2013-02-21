@@ -1,0 +1,167 @@
+{
+    "_copyright": "Copyright (C) 2012 - 2013, Digium, Inc.",
+    "_author": "David M. Lee, II <dlee@digium.com>",
+    "_svn_revision": "$Revision: 379374 $",
+    "apiVersion": "0.0.1",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8088/stasis",
+    "resourcePath": "/recordings",
+    "apis": [
+        {
+            "path": "/api/recordings",
+            "description": "Recordings",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List recordings",
+                    "nickname": "getRecordings",
+                    "responseClass": "Recordings"
+                }
+             ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}",
+            "description": "Individual recording",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get recording details",
+                    "nickname": "getRecording",
+                    "responseClass": "Recording",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete recording",
+                    "nickname": "deleteRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}/stop",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Stop recording",
+                    "nickname": "stopRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}/pause",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Pause recording",
+                    "nickname": "pauseRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}/unpause",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Unpause recording",
+                    "nickname": "unpauseRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}/mute",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Mute recording",
+                    "nickname": "muteRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/recordings/{recordingId}/unmute",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Unmute recording",
+                    "nickname": "unmuteRecording",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "recordingId",
+                            "description": "Recording's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {}
+}

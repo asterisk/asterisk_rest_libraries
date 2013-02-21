@@ -1,0 +1,30 @@
+{
+    "_copyright": "Copyright (C) 2012 - 2013, Digium, Inc.",
+    "_author": "David M. Lee, II <dlee@digium.com>",
+    "_svn_revision": "$Revision: 379374 $",
+    "apiVersion": "0.0.1",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8088/stasis",
+    "apis": [
+        {
+            "path": "/asterisk.{format}",
+            "description": "Asterisk resources"
+        },
+        {
+            "path": "/endpoints.{format}",
+            "description": "Endpoint resources"
+        },
+        {
+            "path": "/channels.{format}",
+            "description": "Channel resources"
+        },
+        {
+            "path": "/bridges.{format}",
+            "description": "Bridge resources"
+        },
+        {
+            "path": "/recordings.{format}",
+            "description": "Recording resources"
+        }
+    ]
+}

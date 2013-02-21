@@ -1,0 +1,54 @@
+{
+    "_copyright": "Copyright (C) 2012 - 2013, Digium, Inc.",
+    "_author": "David M. Lee, II <dlee@digium.com>",
+    "_svn_revision": "$Revision: 379374 $",
+    "apiVersion": "0.0.1",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8088/stasis",
+    "resourcePath": "/endpoints",
+    "apis": [
+        {
+            "path": "/api/endpoints",
+            "description": "Asterisk endpoints",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List available endoints",
+                    "nickname": "getEndpoints",
+                    "responseClass": "Endpoints",
+                    "parameters": [
+                        {
+                            "name": "withType",
+                            "description": "Filter endpoints by type (sip,iax2,dhadi,...)",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": true,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/endpoints/{endpointId}",
+            "description": "Single endpoint",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Details for an endpoint",
+                    "nickname": "getEndpoint",
+                    "responseClass": "Endpoint",
+                    "parameters": [
+                        {
+                            "name": "endpointId",
+                            "description": "ID of the endpoint",
+                            "paramType": "path",
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {}
+}

@@ -1,0 +1,360 @@
+{
+    "_copyright": "Copyright (C) 2012 - 2013, Digium, Inc.",
+    "_author": "David M. Lee, II <dlee@digium.com>",
+    "_svn_revision": "$Revision: 380772 $",
+    "apiVersion": "0.0.1",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8088/stasis",
+    "resourcePath": "/channels",
+    "apis": [
+        {
+            "path": "/api/channels",
+            "description": "Active channels",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List active channels",
+                    "nickname": "getChannels",
+                    "responseClass": "Channels"
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Create a new channel (originate)",
+                    "nickname": "originate",
+                    "responseClass": "Originated",
+                    "parameters": [
+                        {
+                            "name": "endpoint",
+                            "description": "Endpoint to call. If not specified, originate is routed via dialplan",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "extension",
+                            "description": "Extension to dial",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "context",
+                            "description": "When routing via dialplan, the context use. If omitted, uses 'default'",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}",
+            "description": "Active channel",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Channel details",
+                    "nickname": "getChannel",
+                    "responseClass": "Channel",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete (i.e. hangup) a channel",
+                    "nickname": "deleteChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/dial",
+            "description": "Create a new channel (originate) and bridge to this channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Create a new channel (originate) and bridge to this channel",
+                    "nickname": "dial",
+                    "responseClass": "Dialed",
+                    "parameters": [
+                        {
+                            "name": "endpoint",
+                            "description": "Endpoint to call. If not specified, dial is routed via dialplan",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "extension",
+                            "description": "Extension to dial",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "context",
+                            "description": "When routing via dialplan, the context use. If omitted, uses 'default'",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/continue",
+            "description": "Exit application; continue execution in the dialplan",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Exit application; continue execution in the dialplan",
+                    "nickname": "continueInDialplan",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/reject",
+            "description": "Reject a channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Reject a channel",
+                    "nickname": "rejectChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/answer",
+            "description": "Answer a channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Answer a channel",
+                    "nickname": "answerChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/mute",
+            "description": "Mute a channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Mute a channel",
+                    "nickname": "muteChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "direction",
+                            "description": "Direction in which to unmute audio",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "defaultValue": "both",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "both",
+                                    "in",
+                                    "out"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/unmute",
+            "description": "Unmute a channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Unmute a channel",
+                    "nickname": "unmuteChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "direction",
+                            "description": "Direction in which to unmute audio",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "defaultValue": "both",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "both",
+                                    "in",
+                                    "out"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/channels/{channelId}/record",
+            "description": "Record audio to/from a channel",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Start a recording",
+                    "nickname": "recordChannel",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "channelId",
+                            "description": "Channel's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "name",
+                            "description": "Recording's filename",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "maxDurationSeconds",
+                            "description": "Maximum duration of the recording, in seconds. 0 for no limit",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "number",
+                            "defaultValue": 0
+                        },
+                        {
+                            "name": "maxSilenceSeconds",
+                            "description": "Maximum duration of silence, in seconds. 0 for no limit",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "number",
+                            "defaultValue": 0
+                        },
+                        {
+                            "name": "append",
+                            "description": "If true, and recording already exists, append to recording",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "boolean",
+                            "defaultValue": false
+                        },
+                        {
+                            "name": "beep",
+                            "description": "Play beep when recording begins",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "boolean",
+                            "defaultValue": false
+                        },
+                        {
+                            "name": "terminateOn",
+                            "description": "DTMF input to terminate recording",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "defaultValue": "none",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "none",
+                                    "any",
+                                    "*",
+                                    "#"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {}
+}

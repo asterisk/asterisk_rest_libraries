@@ -1,0 +1,212 @@
+{
+    "_copyright": "Copyright (C) 2012 - 2013, Digium, Inc.",
+    "_author": "David M. Lee, II <dlee@digium.com>",
+    "_svn_revision": "$Revision: 379374 $",
+    "apiVersion": "0.0.1",
+    "swaggerVersion": "1.1",
+    "basePath": "http://localhost:8088/stasis",
+    "resourcePath": "/bridges.json",
+    "apis": [
+        {
+            "path": "/api/bridges",
+            "description": "Active bridges",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "List active bridges",
+                    "nickname": "getBridges",
+                    "responseClass": "Bridges"
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Create a new bridge",
+                    "nickname": "newBridge",
+                    "responseClass": "Bridge"
+                }
+             ]
+        },
+        {
+            "path": "/api/bridges/{bridgeId}",
+            "description": "Individual bridge",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get bridge details",
+                    "nickname": "getBridge",
+                    "responseClass": "Bridge",
+                    "parameters": [
+                        {
+                            "name": "bridgeId",
+                            "description": "Bridge's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete bridge",
+                    "nickname": "deleteBridge",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "bridgeId",
+                            "description": "Bridge's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/bridges/{bridgeId}/addChannel",
+            "description": "Add a channel to a bridge",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Add a channel to a bridge",
+                    "nickname": "addChannelToBridge",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "bridgeId",
+                            "description": "Bridge's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "channel",
+                            "description": "Channel's id",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": true,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/bridges/{bridgeId}/removeChannel",
+            "description": "Remove a channel from a bridge",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Remove a channel from a bridge",
+                    "nickname": "removeChannelFromBridge",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "bridgeId",
+                            "description": "Bridge's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "channel",
+                            "description": "Channel's id",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": true,
+                            "dataType": "string"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/api/bridges/{bridgeId}/record",
+            "description": "Record audio to/from a bridge",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Start a recording",
+                    "nickname": "recordBridge",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "bridgeId",
+                            "description": "Bridge's id",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "name",
+                            "description": "Recording's filename",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "maxDurationSeconds",
+                            "description": "Maximum duration of the recording, in seconds. 0 for no limit.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "number",
+                            "defaultValue": 0
+                        },
+                        {
+                            "name": "maxSilenceSeconds",
+                            "description": "Maximum duration of silence, in seconds. 0 for no limit.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "number",
+                            "defaultValue": 0
+                        },
+                        {
+                            "name": "append",
+                            "description": "If true, and recording already exists, append to recording.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "boolean",
+                            "defaultValue": false
+                        },
+                        {
+                            "name": "beep",
+                            "description": "Play beep when recording begins",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "boolean",
+                            "defaultValue": false
+                        },
+                        {
+                            "name": "terminateOn",
+                            "description": "DTMF input to terminate recording.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "defaultValue": "none",
+                            "allowableValues": {
+                                "valueType": "LIST",
+                                "values": [
+                                    "none",
+                                    "any",
+                                    "*",
+                                    "#"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {}
+}
