@@ -49,18 +49,22 @@ class AsteriskPy:
 
     def get_endpoints(self):
         """Return a list of all Endpoints from Asterisk."""
+        result_list = [Endpoint(), Endpoint()]
         return result_list
 
     def get_channels(self):
         """Return a list of all Channels from Asterisk."""
+        result_list = [Channel(), Channel()]
         return result_list
 
     def get_bridges(self):
         """Return a list of all Bridges from Asterisk"""
+        result_list = [Bridge(), Bridge()]
         return result_list
 
     def get_recordings(self):
         """Return a list of all Recordings from Asterisk."""
+        result_list = [Recording(), Recording()]
         return result_list
 
     def get_endpoint(self, object_id):
