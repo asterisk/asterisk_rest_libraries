@@ -14,6 +14,7 @@
  at the top of the source tree.
 
 """
+from recording import Recording
 
 
 class Channel:

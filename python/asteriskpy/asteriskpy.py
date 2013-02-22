@@ -16,6 +16,10 @@
 """
 import requests
 import json
+from endpoint import Endpoint
+from channel import Channel
+from bridge import Bridge
+from recording import Recording
 
 
 class AsteriskPy:

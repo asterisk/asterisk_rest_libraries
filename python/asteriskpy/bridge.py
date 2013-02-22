@@ -14,6 +14,8 @@
  at the top of the source tree.
 
 """
+from channel import Channel
+from recording import Recording
 
 
 class Bridge:
@@ -30,12 +32,12 @@ class Bridge:
         is_success = True
         return is_success
 
-    def add_channel(self):
+    def add_channel(self, channel):
         """Add a Channel to the Bridge."""
         is_success = True
         return is_success
 
-    def remove_channel(self):
+    def remove_channel(self, channel):
         """Remove a Channel from the Bridge."""
         is_success = True
         return is_success
