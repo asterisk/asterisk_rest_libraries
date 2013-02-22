@@ -17,15 +17,16 @@
 """
 
 import sys
-from asteriskpy import AsteriskPy, Endpoint, Channel, Bridge, Recording
+import asteriskpy
 
 
-HOST = '192.168.1.124'
+HOST = '10.24.67.73'
+#HOST = '192.168.1.124'
 PORT = '8088'
 
 
 def main(argv):
-    ast = AsteriskPy(host=HOST, port=PORT)
+    ast = asteriskpy.AsteriskPy(host=HOST, port=PORT)
     result = ast.get_info()
     print "Asterisk status is %s" % (result)
 
@@ -48,7 +49,7 @@ def main(argv):
         print "method record returns %s" % (channel.record())
         print "method dial returns %s" % (channel.dial())
 
-    chan = Channel()
+    chan = asteriskpy.Channel()
     for bridge in bridges:
         print "got bridge with id %s" % (bridge.get_id())
         print "method delete returns %s" % (bridge.delete())

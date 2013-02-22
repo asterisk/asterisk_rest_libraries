@@ -19,3 +19,5 @@ from endpoint import Endpoint
 from bridge import Bridge
 from channel import Channel
 from recording import Recording
+
+__all__ = ['AsteriskPy', 'Endpoint', 'Bridge', 'Channel', 'Recording']
