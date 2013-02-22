@@ -1,6 +1,31 @@
+import requests
+import json
+
+
 class AsteriskPy:
-    def __init__(self):
-        pass
+    def __init__(self, host='localhost', port='8088', https=False):
+        """Initiate new AsteriskPy instance.
+
+        Takes optional string host, string port, boolean https.
+        Raise requests.exceptions
+
+        """
+        self._host = host
+        self._port = port
+        if https is False:
+            self._protocol = 'http'
+        else:
+            self._protocol = 'https'
+
+        self._stasis_base = "%s://%s:%s/stasis" \
+            % (self._protocol, self._host, self._port)
+
+        try:
+            requests.get("%s/asterisk.json" % (self._stasis_base))
+        except requests.exceptions.ConnectionError:
+            raise AsteriskPyAccessException(
+                "Cannot access URI %s" % (self._stasis_base)
+            )
 
     def get_info(self):
         """Return dict of Asterisk system information"""
@@ -53,3 +78,10 @@ class AsteriskPy:
         For object-specific events, use the object's add_event_handler instead.
         """
         pass
+
+    class AsteriskPyAccessException(Exception):
+		def __init__(self, m):
+			self.message = m
+
+		def __str__(self):
+			return self.message

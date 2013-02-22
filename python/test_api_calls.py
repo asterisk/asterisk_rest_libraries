@@ -10,7 +10,7 @@ from pprint import pprint
 
 HOST = '192.168.1.124'
 PORT = '8088'
-PATH = '/home/erin/api_stuff'
+PATH = '/home/erin/asterisk_rest_libraries'
 
 
 def main(argv):
