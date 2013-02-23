@@ -38,14 +38,14 @@ class AsteriskPy:
         else:
             self._protocol = 'https'
 
-        self._stasis_base = "%s://%s:%s/stasis" \
+        self._stasis_base = "%s://%s:%s/stasis/api" \
             % (self._protocol, self._host, self._port)
         self._api = AsteriskRestAPI(uri=self._stasis_base)
 
     def get_info(self):
         """Return dict of Asterisk system information"""
         result = self._api.call('asterisk', http_method='GET',
-                                api_method='getInfo')
+                                api_method='info')
         return result
 
     def get_endpoints(self):
