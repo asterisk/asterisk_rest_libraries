@@ -50,42 +50,102 @@ class AsteriskPy:
 
     def get_endpoints(self):
         """Return a list of all Endpoints from Asterisk."""
+        result = self._api.call('endpoints', http_method='GET')
+        # Temporary until method is implemented
         result_list = [Endpoint(), Endpoint()]
+        """
+
+        endpoints = [Endpoint(x) for x in result]
+
+        """
         return result_list
 
     def get_channels(self):
         """Return a list of all Channels from Asterisk."""
+        result = self._api.call('channels', http_method='GET')
+        # Temporary until method is implemented
         result_list = [Channel(), Channel()]
+        """
+
+        channels = [Channel(x) for x in result]
+
+        """
         return result_list
 
     def get_bridges(self):
         """Return a list of all Bridges from Asterisk"""
+        result = self._api.call('bridges', http_method='GET')
+        # Temporary until method is implemented
         result_list = [Bridge(), Bridge()]
+        """
+
+        bridges = [Bridge(x) for x in result]
+
+        """
         return result_list
 
     def get_recordings(self):
         """Return a list of all Recordings from Asterisk."""
+        result = self._api.call('recordings', http_method='GET')
+        # Temporary until method is implemented
         result_list = [Recording(), Recording()]
+        """
+
+        recordings = [Recording(x) for x in result]
+
+        """
         return result_list
 
     def get_endpoint(self, object_id):
         """Return Endpoint specified by object_id."""
+        result = self._api.call('endpoints', http_method='GET',
+                                object_id=object_id)
+        # Temporary until method is implemented
         result = Endpoint()
+        """
+
+        endpoint = Endpoint(result)
+
+        """
         return result
 
     def get_channel(self, object_id):
         """Return Channel specified by object_id."""
+        result = self._api.call('channels', http_method='GET',
+                                object_id=object_id)
+        # Temporary until method is implemented
         result = Channel()
+        """
+
+        channel = Channel(result)
+
+        """
         return result
 
     def get_bridge(self, object_id):
         """Return Bridge specified by object_id."""
+        result = self._api.call('bridges', http_method='GET',
+                                object_id=object_id)
+        # Temporary until method is implemented
         result = Bridge()
+        """
+
+        bridge = Bridge(result)
+
+        """
         return result
 
     def get_recording(self, object_id):
         """Return Recording specified by object_id."""
+        result = self._api.call('recordings', http_method='GET',
+                                object_id=object_id)
+        # Temporary until method is implemented
         result = Recording()
+        """
+
+        recording = Recording(result)
+
+        """
         return result
 
     def add_event_handler(self, event_name, handler):
