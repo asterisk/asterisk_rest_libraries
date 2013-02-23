@@ -28,7 +28,7 @@ PORT = '8088'
 def main(argv):
     ast = asteriskpy.AsteriskPy(host=HOST, port=PORT)
     result = ast.get_info()
-    print "Asterisk status is %s" % (result)
+    print "Asterisk status is %s" % (result['response']['message'])
 
     endpoints = ast.get_endpoints()
     channels = ast.get_channels()

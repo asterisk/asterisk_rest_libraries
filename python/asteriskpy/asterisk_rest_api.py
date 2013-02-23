@@ -38,8 +38,28 @@ class AsteriskRestAPI:
 
     def call(self, object_path,
              http_method='GET', api_method=None,
-             parameters=None, object_id=None,
-             on_success=None, on_error=None):
+             parameters=None, object_id=None):
+        """Call an Asterisk API method, return result dictionary
+
+        Throws AsteriskPyAccessException if the server is unreachable.
+        Returns a dict of the following structure:
+
+        {
+            'success' : True, # or False
+            'response' : jsonObject, # or None
+            'error' : None, # or string
+        }
+
+        success indicates the success or failure of the Asterisk API call.
+        response is a dictionary constructed by json.dumps(json_string)
+        error is a message.
+
+        If the API call is successful but Asterisk returns invalid JSON, error
+        will be "Invalid JSON." and response will be the unchanged content
+        of the response.
+
+        """
+        result = {'success' : False, 'response' : None, 'error' : None}
         request_uri = "%s/%s" % (self._base_uri, object_path)
         if object_id is not None:
             request_uri = request_uri + "/%s" % (object_id)
@@ -64,24 +84,23 @@ class AsteriskRestAPI:
             )
 
         if resp is None:
-            return True
+            # No response or exception? This will probably never happen.
+            result['error'] = "No response."
+            return result
 
-        if resp.text is not None:
-            try:
-                response_object = json.dumps(resp.text)
-            except:
-                if on_error is not None:
-                    on_error(uri=request_uri, error="Invalid JSON")
-
-            if on_success is not None:
-                on_success(uri=request_uri, result=response_object)
-            else:
-                return True
+        if resp.status_code in [418, 200]:
+            result['success'] = True
         else:
-            if on_success is not None:
-                on_success(uri=request_uri)
-            else:
-                return True
+            result['error'] = "HTTP error occurred: %s" % (resp.status_code)
+            return result
+
+        try:
+            result['response'] = json.loads(resp.text)
+        except ValueError:
+            result['response'] = resp.text
+            result['error'] = "Invalid JSON."
+
+        return result
 
     def add_event_handler(self, event_name, handler):
         """Add a general event handler for Stasis events.
