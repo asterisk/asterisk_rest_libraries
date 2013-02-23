@@ -16,6 +16,7 @@
 """
 import requests
 import json
+from asterisk_rest_api import AsteriskRestAPI
 from endpoint import Endpoint
 from channel import Channel
 from bridge import Bridge
@@ -39,17 +40,13 @@ class AsteriskPy:
 
         self._stasis_base = "%s://%s:%s/stasis" \
             % (self._protocol, self._host, self._port)
-
-        try:
-            requests.get("%s/asterisk.json" % (self._stasis_base))
-        except requests.exceptions.ConnectionError:
-            raise AsteriskPyAccessException(
-                "Cannot access URI %s" % (self._stasis_base)
-            )
+        self._api = AsteriskRestAPI(uri=self._stasis_base)
 
     def get_info(self):
         """Return dict of Asterisk system information"""
-        return 'fantastic'
+        result = self._api.call('asterisk', http_method='GET',
+                                api_method='getInfo')
+        return result
 
     def get_endpoints(self):
         """Return a list of all Endpoints from Asterisk."""
@@ -102,13 +99,3 @@ class AsteriskPy:
         For object-specific events, use the object's add_event_handler instead.
         """
         pass
-
-    class AsteriskPyAccessException(Exception):
-        def __init__(self, m):
-            self.message = m
-
-        def __str__(self):
-            return self.message
-
-        def _call_api_method(self, uri, params):
-            pass
