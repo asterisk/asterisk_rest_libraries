@@ -37,7 +37,7 @@ class AsteriskRestAPI:
             )
 
     def call(self, object_path,
-             http_method='get', api_method=None,
+             http_method='GET', api_method=None,
              parameters=None, object_id=None,
              on_success=None, on_error=None):
         request_uri = "%s/%s" % (self._base_uri, object_path)
