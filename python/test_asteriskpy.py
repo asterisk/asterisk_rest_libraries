@@ -34,6 +34,8 @@ def main(argv):
     channels = ast.get_channels()
     bridges = ast.get_bridges()
     recordings = ast.get_recordings()
+    channel = ast.create_channel({'tech' : 'dummy_params'})
+    bridge = ast.create_bridge({'tech' : 'dummy_params'})
 
     for endpoint in endpoints:
         print "got endpoint with id %s" % (endpoint.get_id())

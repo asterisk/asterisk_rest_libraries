@@ -148,6 +148,22 @@ class AsteriskPy:
         """
         return result
 
+    def create_channel(self, params):
+        """In Asterisk, originate a channel. Return the Channel."""
+        result = self._api.call('channels', http_method='POST',
+                                parameters=params)
+        # Temporary until method is implemented
+        result = Channel()
+        return result
+
+    def create_bridge(self, params):
+        """In Asterisk, bridge two or more channels. Return the Bridge."""
+        result = self._api.call('bridges', http_method='POST',
+                                parameters=params)
+        # Temporary until method is implemented
+        result = Bridge()
+        return result
+
     def add_event_handler(self, event_name, handler):
         """Add a general event handler for Stasis events.
         For object-specific events, use the object's add_event_handler instead.

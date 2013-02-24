@@ -67,8 +67,6 @@ class AsteriskRestAPI:
         if api_method is not None:
             request_uri = request_uri + "/%s" % (api_method)
 
-        print "request_uri is %s" % (request_uri)
-
         try:
             if http_method == 'GET':
                 resp = requests.get(request_uri, params=parameters)
