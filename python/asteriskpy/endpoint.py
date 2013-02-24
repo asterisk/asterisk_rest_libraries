@@ -17,9 +17,10 @@
 
 
 class Endpoint:
-    def __init__(self):
+    def __init__(self, api):
         """Initialize the Endpoint object."""
         self.id = 1
+        self._api = api
 
     def get_id(self):
         """Return the Endpoint object's id."""

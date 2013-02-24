@@ -51,7 +51,7 @@ def main(argv):
         print "method record returns %s" % (channel.record())
         print "method dial returns %s" % (channel.dial())
 
-    chan = asteriskpy.Channel()
+    chan = asteriskpy.Channel(ast._api)
     for bridge in bridges:
         print "got bridge with id %s" % (bridge.get_id())
         print "method delete returns %s" % (bridge.delete())

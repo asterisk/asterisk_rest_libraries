@@ -41,6 +41,7 @@ class AsteriskPy:
         self._stasis_base = "%s://%s:%s/stasis/api" \
             % (self._protocol, self._host, self._port)
         self._api = AsteriskRestAPI(uri=self._stasis_base)
+        # parameters for constructors of the other objects
 
     def get_info(self):
         """Return dict of Asterisk system information"""
@@ -52,7 +53,7 @@ class AsteriskPy:
         """Return a list of all Endpoints from Asterisk."""
         result = self._api.call('endpoints', http_method='GET')
         # Temporary until method is implemented
-        result_list = [Endpoint(), Endpoint()]
+        result_list = [Endpoint(self._api), Endpoint(self._api)]
         """
 
         endpoints = [Endpoint(x) for x in result]
@@ -64,7 +65,7 @@ class AsteriskPy:
         """Return a list of all Channels from Asterisk."""
         result = self._api.call('channels', http_method='GET')
         # Temporary until method is implemented
-        result_list = [Channel(), Channel()]
+        result_list = [Channel(self._api), Channel(self._api)]
         """
 
         channels = [Channel(x) for x in result]
@@ -76,7 +77,7 @@ class AsteriskPy:
         """Return a list of all Bridges from Asterisk"""
         result = self._api.call('bridges', http_method='GET')
         # Temporary until method is implemented
-        result_list = [Bridge(), Bridge()]
+        result_list = [Bridge(self._api), Bridge(self._api)]
         """
 
         bridges = [Bridge(x) for x in result]
@@ -88,7 +89,7 @@ class AsteriskPy:
         """Return a list of all Recordings from Asterisk."""
         result = self._api.call('recordings', http_method='GET')
         # Temporary until method is implemented
-        result_list = [Recording(), Recording()]
+        result_list = [Recording(self._api), Recording(self._api)]
         """
 
         recordings = [Recording(x) for x in result]
@@ -101,7 +102,7 @@ class AsteriskPy:
         result = self._api.call('endpoints', http_method='GET',
                                 object_id=object_id)
         # Temporary until method is implemented
-        result = Endpoint()
+        result = Endpoint(self._api)
         """
 
         endpoint = Endpoint(result)
@@ -114,7 +115,7 @@ class AsteriskPy:
         result = self._api.call('channels', http_method='GET',
                                 object_id=object_id)
         # Temporary until method is implemented
-        result = Channel()
+        result = Channel(self._api)
         """
 
         channel = Channel(result)
@@ -127,7 +128,7 @@ class AsteriskPy:
         result = self._api.call('bridges', http_method='GET',
                                 object_id=object_id)
         # Temporary until method is implemented
-        result = Bridge()
+        result = Bridge(self._api)
         """
 
         bridge = Bridge(result)
@@ -140,7 +141,7 @@ class AsteriskPy:
         result = self._api.call('recordings', http_method='GET',
                                 object_id=object_id)
         # Temporary until method is implemented
-        result = Recording()
+        result = Recording(self._api)
         """
 
         recording = Recording(result)
@@ -153,7 +154,7 @@ class AsteriskPy:
         result = self._api.call('channels', http_method='POST',
                                 parameters=params)
         # Temporary until method is implemented
-        result = Channel()
+        result = Channel(self._api)
         return result
 
     def create_bridge(self, params):
@@ -161,7 +162,7 @@ class AsteriskPy:
         result = self._api.call('bridges', http_method='POST',
                                 parameters=params)
         # Temporary until method is implemented
-        result = Bridge()
+        result = Bridge(self._api)
         return result
 
     def add_event_handler(self, event_name, handler):

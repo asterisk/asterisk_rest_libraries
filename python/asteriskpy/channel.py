@@ -18,9 +18,10 @@ from recording import Recording
 
 
 class Channel:
-    def __init__(self):
+    def __init__(self, api):
         """Initialize the Channel object."""
         self.id = 1
+        self._api = api
 
     def get_id(self):
         """Return the Channel object's id."""
@@ -28,41 +29,56 @@ class Channel:
 
     def delete(self):
         """Delete the Channel."""
+        self._api.call('channels', http_method='DELETE', object_id=self.id)
         is_success = True
         return is_success
 
     def reject(self):
         """Reject the Channel."""
+        self._api.call('channels', http_method='POST', api_method='reject', \
+            object_id=self.id)
         is_success = True
         return is_success
 
     def answer(self):
         """Answer the Channel."""
+        self._api.call('channels', http_method='POST', api_method='answer', \
+            object_id=self.id)
         is_success = True
         return is_success
 
     def hangup(self):
         """Hang the Channel up."""
+        self._api.call('channels', http_method='POST', api_method='hangup', \
+            object_id=self.id)
         is_success = True
         return is_success
 
     def mute(self):
         """Mute the Channel."""
+        self._api.call('channels', http_method='POST', api_method='mute', \
+            object_id=self.id)
         is_success = True
         return is_success
 
     def unmute(self):
         """Unmute the Channel."""
+        self._api.call('channels', http_method='POST', api_method='unmute', \
+            object_id=self.id)
         is_success = True
         return is_success
 
     def record(self):
         """Initiate a new recording on the Channel."""
-        recording = Recording()
+        self._api.call('channels', http_method='POST', api_method='record', \
+            object_id=self.id)
+        recording = Recording(self._api)
         return recording
 
     def dial(self):
-        """Dial."""
+        """Originate a new channel and bridge it to this one."""
+        self._api.call('channels', http_method='POST', api_method='dial', \
+            object_id=self.id)
         is_success = True
         return is_success
 

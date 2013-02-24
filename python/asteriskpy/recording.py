@@ -17,12 +17,13 @@
 
 
 class Recording:
-    def __init__(self):
+    def __init__(self, api):
         """Initialize the Recording object."""
         self.id = 1
         self._is_stopped = False
         self._is_paused = False
         self._is_muted = False
+        self._api = api
 
     def get_id(self):
         """Return the Recording object's id."""
@@ -30,35 +31,46 @@ class Recording:
 
     def delete(self):
         """Delete the Recording."""
+        self._api.call('recordings', http_method='DELETE', object_id=self.id)
         is_success = True
         return is_success
 
     def stop(self):
         """Stop recording."""
+        self._api.call('recordings', http_method='POST', api_method='stop', \
+            object_id=self.id)
         self._is_stopped = True
         is_success = True
         return is_success
 
     def pause(self):
         """Pause recording."""
+        self._api.call('recordings', http_method='POST', api_method='pause', \
+            object_id=self.id)
         self._is_paused = True
         is_success = True
         return is_success
 
     def unpause(self):
         """Unpause recording."""
+        self._api.call('recordings', http_method='POST', api_method='unpause', \
+            object_id=self.id)
         self._is_paused = False
         is_success = True
         return is_success
 
     def mute(self):
         """Mute recording."""
+        self._api.call('recordings', http_method='POST', api_method='mute', \
+            object_id=self.id)
         self._is_muted = True
         is_success = True
         return is_success
 
     def unmute(self):
         """Unmute recording."""
+        self._api.call('recordings', http_method='POST', api_method='unmute', \
+            object_id=self.id)
         self._is_muted = False
         is_success = True
         return is_success
