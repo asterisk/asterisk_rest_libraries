@@ -17,7 +17,7 @@
 """
 
 import sys
-import asteriskpy
+import auto_asteriskpy
 
 
 HOST = '10.24.67.73'
@@ -26,9 +26,9 @@ PORT = '8088'
 
 
 def main(argv):
-    ast = asteriskpy.AsteriskPy(host=HOST, port=PORT)
+    ast = auto_asteriskpy.AsteriskPy(host=HOST, port=PORT)
     result = ast.get_info()
-    print "Asterisk status is %s" % (result['response']['message'])
+    print "Asterisk status is %s" % (result)
 
     endpoints = ast.get_endpoints()
     channels = ast.get_channels()
@@ -45,20 +45,20 @@ def main(argv):
         print "method delete returns %s" % (channel.delete())
         print "method reject returns %s" % (channel.reject())
         print "method answer returns %s" % (channel.answer())
-        print "method hangup returns %s" % (channel.hangup())
         print "method mute returns %s" % (channel.mute())
         print "method unmute returns %s" % (channel.unmute())
-        print "method record returns %s" % (channel.record())
+        print "method record returns %s" % (channel.record('rec name'))
         print "method dial returns %s" % (channel.dial())
 
-    chan = asteriskpy.Channel(ast._api)
+    chan = auto_asteriskpy.Channel(ast._api)
     for bridge in bridges:
         print "got bridge with id %s" % (bridge.get_id())
         print "method delete returns %s" % (bridge.delete())
-        print "method add_channel returns %s" % (bridge.add_channel(chan))
-        print "method remove_channel returns %s" \
-            % (bridge.remove_channel(chan))
-        print "method record returns %s" % (bridge.record())
+        print "method add_channel_to returns %s" \
+            % (bridge.add_channel_to(chan.get_id()))
+        print "method remove_channel_from returns %s" \
+            % (bridge.remove_channel_from(chan.get_id()))
+        print "method record returns %s" % (bridge.record('rec name'))
 
     for recording in recordings:
         print "got recording with id %s" % (recording.get_id())
