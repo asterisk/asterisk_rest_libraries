@@ -22,6 +22,7 @@ import glob
 import json
 import requests
 from api import APIClass
+import codewrap
 from pprint import pprint
 
 
@@ -58,23 +59,21 @@ def main(argv):
         classes.append(APIClass(res))
 
     for class_ in classes:
-        class_def = class_.construct_file_contents(
-            template_class_def,
-            template_method_def
-        )
+        class_def = class_.construct_file_contents(template_class_def,
+                                                   template_method_def)
         method_texts = []
         for method in class_.methods:
             if method.method_name in ['get', 'gets']:
                 continue
-            method_texts.append(
-                method.construct_file_contents(template_method_def)
-            )
+            filebit = method.construct_file_contents(template_method_def)
+            method_texts.append(filebit)
 
         file_contents = '\n'.join([template_copyright, class_def])
         for text in method_texts:
             file_contents = '\n'.join([file_contents, text])
 
-        write_file('%s.py' % (class_.file_name), file_contents)
+        wrapped_file_contents = codewrap.wrap(file_contents, 79)
+        write_file('%s.py' % (class_.file_name), wrapped_file_contents)
 
 def get_object_from_JSON_file(jsonfile):
     jsonString = get_file_content(jsonfile)

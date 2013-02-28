@@ -67,7 +67,6 @@ class APIClassMethod():
             self.param_dict_lines.append("            params['%s'] = %s" \
                                          % (p['name'], param_name))
 
-            #if 'required' in p and not p['required']:
             if 'defaultValue' in p:
                 p['defaultValue'] = "'%s'" % (p['defaultValue'])
             else:

@@ -37,7 +37,8 @@ class Channel:
         """
         pass
 
-    def originate(self, endpoint_string=None, extension_string=None, context_string=None):
+    def originate(self, endpoint_string=None, extension_string=None,
+                  context_string=None):
         """Active channels
 
         Create a new channel (originate)
@@ -51,7 +52,8 @@ class Channel:
         if context_string:
             params['context'] = context_string
 
-        self._api.call('/api/channels', http_method='POST', api_method='originate', parameters=params)
+        self._api.call('/api/channels', http_method='POST',
+                       api_method='originate', parameters=params)
         is_success = True
         return is_success
 
@@ -63,11 +65,14 @@ class Channel:
         """
         params = {}
 
-        self._api.call('/api/channels/%s', http_method='DELETE', api_method='delete', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s', http_method='DELETE',
+                       api_method='delete', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
-    def dial(self, endpoint_string=None, extension_string=None, context_string=None):
+    def dial(self, endpoint_string=None, extension_string=None,
+             context_string=None):
         """Create a new channel (originate) and bridge to this channel
 
         Create a new channel (originate) and bridge to this channel
@@ -81,7 +86,8 @@ class Channel:
         if context_string:
             params['context'] = context_string
 
-        self._api.call('/api/channels/%s/dial', http_method='POST', api_method='dial', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/dial', http_method='POST',
+                       api_method='dial', parameters=params, object_id=self.id)
         is_success = True
         return is_success
 
@@ -93,7 +99,9 @@ class Channel:
         """
         params = {}
 
-        self._api.call('/api/channels/%s/continue', http_method='POST', api_method='continue_in_dialplan', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/continue', http_method='POST',
+                       api_method='continue_in_dialplan', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -105,7 +113,9 @@ class Channel:
         """
         params = {}
 
-        self._api.call('/api/channels/%s/reject', http_method='POST', api_method='reject', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/reject', http_method='POST',
+                       api_method='reject', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -117,7 +127,9 @@ class Channel:
         """
         params = {}
 
-        self._api.call('/api/channels/%s/answer', http_method='POST', api_method='answer', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/answer', http_method='POST',
+                       api_method='answer', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -131,7 +143,8 @@ class Channel:
         if direction_string:
             params['direction'] = direction_string
 
-        self._api.call('/api/channels/%s/mute', http_method='POST', api_method='mute', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/mute', http_method='POST',
+                       api_method='mute', parameters=params, object_id=self.id)
         is_success = True
         return is_success
 
@@ -145,11 +158,15 @@ class Channel:
         if direction_string:
             params['direction'] = direction_string
 
-        self._api.call('/api/channels/%s/unmute', http_method='POST', api_method='unmute', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/unmute', http_method='POST',
+                       api_method='unmute', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
-    def record(self, name_string=None, maxDurationSeconds_number='0', maxSilenceSeconds_number='0', append_boolean='False', beep_boolean='False', terminateOn_string='none'):
+    def record(self, name_string=None, maxDurationSeconds_number='0',
+               maxSilenceSeconds_number='0', append_boolean='False',
+               beep_boolean='False', terminateOn_string='none'):
         """Record audio to/from a channel
 
         Start a recording
@@ -169,6 +186,8 @@ class Channel:
         if terminateOn_string:
             params['terminateOn'] = terminateOn_string
 
-        self._api.call('/api/channels/%s/record', http_method='POST', api_method='record', parameters=params, object_id=self.id)
+        self._api.call('/api/channels/%s/record', http_method='POST',
+                       api_method='record', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success

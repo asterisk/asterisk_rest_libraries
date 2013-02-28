@@ -45,7 +45,9 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s', http_method='DELETE', api_method='delete', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s', http_method='DELETE',
+                       api_method='delete', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -57,7 +59,8 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s/stop', http_method='POST', api_method='stop', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s/stop', http_method='POST',
+                       api_method='stop', parameters=params, object_id=self.id)
         is_success = True
         return is_success
 
@@ -69,7 +72,9 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s/pause', http_method='POST', api_method='pause', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s/pause', http_method='POST',
+                       api_method='pause', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -81,7 +86,9 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s/unpause', http_method='POST', api_method='unpause', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s/unpause', http_method='POST',
+                       api_method='unpause', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
 
@@ -93,7 +100,8 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s/mute', http_method='POST', api_method='mute', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s/mute', http_method='POST',
+                       api_method='mute', parameters=params, object_id=self.id)
         is_success = True
         return is_success
 
@@ -105,6 +113,8 @@ class Recording:
         """
         params = {}
 
-        self._api.call('/api/recordings/%s/unmute', http_method='POST', api_method='unmute', parameters=params, object_id=self.id)
+        self._api.call('/api/recordings/%s/unmute', http_method='POST',
+                       api_method='unmute', parameters=params,
+                       object_id=self.id)
         is_success = True
         return is_success
