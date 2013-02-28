@@ -20,8 +20,8 @@ import sys
 import auto_asteriskpy
 
 
-HOST = '10.24.67.73'
-#HOST = '192.168.1.124'
+#HOST = '10.24.67.73'
+HOST = '192.168.1.124'
 PORT = '8088'
 
 

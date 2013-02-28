@@ -28,7 +28,7 @@ class APIClassMethod():
         self.required_id = False
         self.api_summary = ''
         self.method_summary = ''
-        self.param_construct = '        params = {}'
+        self.param_dict_lines = ['params = {}']
 
         obj_id_re = re.compile('\{\w+\}')
         if obj_id_re.search(self.path):
@@ -58,24 +58,22 @@ class APIClassMethod():
             if p['name'] == "%sId" % (self.file_name):
                 continue
 
-            param = "%s_%s" % (p['name'], p['dataType'])
+            param_name = "%s_%s" % (p['name'], p['dataType'])
 
             if 'allowMultiple' in p and p['allowMultiple']:
-                param = param + "_list"
+                param_name = param_name + "_list"
 
-            param_construct_line = '\n'.join([
-                "        if %s:",
-                "            params['%s'] = %s\n"
-            ]) % (param, p['name'], param)
-            self.param_construct = '\n'.join([self.param_construct,
-                                             param_construct_line])
+            self.param_dict_lines.append("        if %s:" % (param_name))
+            self.param_dict_lines.append("            params['%s'] = %s" \
+                                         % (p['name'], param_name))
 
-            if 'required' in p and not p['required']:
-                if 'defaultValue' in p:
-                    p['defaultValue'] = "'%s'" % (p['defaultValue'])
-                else:
-                    p['defaultValue'] = None
-                param = "%s=%s" % (param, p['defaultValue'])
+            #if 'required' in p and not p['required']:
+            if 'defaultValue' in p:
+                p['defaultValue'] = "'%s'" % (p['defaultValue'])
+            else:
+                p['defaultValue'] = None
+
+            param = "%s=%s" % (param_name, p['defaultValue'])
 
             self.method_params.append(param)
 
@@ -98,8 +96,9 @@ class APIClassMethod():
         method_comment = ''
         method_comment = '"""%s\n\n        %s\n\n        """' \
             % (self.api_summary, self.method_summary)
-        method_comment = '\n'.join([method_comment, self.param_construct])
         template = re.sub('\{METHOD_COMMENTS\}', method_comment, template)
+        template = re.sub('\{BUILD_API_CALL_PARAMS\}',
+                          '\n'.join(self.param_dict_lines), template)
 
         return template
 

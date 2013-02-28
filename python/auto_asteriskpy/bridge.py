@@ -44,6 +44,7 @@ class Bridge:
 
         """
         params = {}
+
         self._api.call('/api/bridges', http_method='POST', api_method='new', parameters=params)
         is_success = True
         return is_success
@@ -55,11 +56,12 @@ class Bridge:
 
         """
         params = {}
+
         self._api.call('/api/bridges/%s', http_method='DELETE', api_method='delete', parameters=params, object_id=self.id)
         is_success = True
         return is_success
 
-    def add_channel_to(self, channel_string_list):
+    def add_channel_to(self, channel_string_list=None):
         """Add a channel to a bridge
 
         Add a channel to a bridge
@@ -73,7 +75,7 @@ class Bridge:
         is_success = True
         return is_success
 
-    def remove_channel_from(self, channel_string_list):
+    def remove_channel_from(self, channel_string_list=None):
         """Remove a channel from a bridge
 
         Remove a channel from a bridge
@@ -87,7 +89,7 @@ class Bridge:
         is_success = True
         return is_success
 
-    def record(self, name_string, maxDurationSeconds_number='0', maxSilenceSeconds_number='0', append_boolean='False', beep_boolean='False', terminateOn_string='none'):
+    def record(self, name_string=None, maxDurationSeconds_number='0', maxSilenceSeconds_number='0', append_boolean='False', beep_boolean='False', terminateOn_string='none'):
         """Record audio to/from a bridge
 
         Start a recording
@@ -96,19 +98,14 @@ class Bridge:
         params = {}
         if name_string:
             params['name'] = name_string
-
         if maxDurationSeconds_number:
             params['maxDurationSeconds'] = maxDurationSeconds_number
-
         if maxSilenceSeconds_number:
             params['maxSilenceSeconds'] = maxSilenceSeconds_number
-
         if append_boolean:
             params['append'] = append_boolean
-
         if beep_boolean:
             params['beep'] = beep_boolean
-
         if terminateOn_string:
             params['terminateOn'] = terminateOn_string
 
