@@ -9,12 +9,12 @@
  the project provides a web site, mailing lists and IRC
  channels for your use.
 
- This program is free software, distributed under the terms of
- the GNU General Public License Version 2. See the LICENSE file
- at the top of the source tree.
+ This program is free software, distributed under the terms
+ detailed in the the LICENSE file at the top of the source tree.
 
 """
 from asteriskpy import AsteriskPy
+from asterisk import Asterisk
 from endpoint import Endpoint
 from bridge import Bridge
 from channel import Channel

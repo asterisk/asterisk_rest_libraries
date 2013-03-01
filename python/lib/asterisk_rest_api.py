@@ -9,14 +9,14 @@
  the project provides a web site, mailing lists and IRC
  channels for your use.
 
- This program is free software, distributed under the terms of
- the GNU General Public License Version 2. See the LICENSE file
- at the top of the source tree.
+ This program is free software, distributed under the terms
+ detailed in the the LICENSE file at the top of the source tree.
 
 """
 import requests
 import json
-from error import *
+import re
+from errors import *
 
 
 class AsteriskRestAPI:
@@ -60,6 +60,9 @@ class AsteriskRestAPI:
 
         """
         result = {'success' : False, 'response' : None, 'error' : None}
+        if object_id:
+            object_path = object_path % (object_id)
+
         request_uri = "%s/%s" % (self._base_uri, object_path)
         if object_id is not None:
             request_uri = request_uri + "/%s" % (object_id)

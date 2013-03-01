@@ -9,14 +9,14 @@
  the project provides a web site, mailing lists and IRC
  channels for your use.
 
- This program is free software, distributed under the terms of
- the GNU General Public License Version 2. See the LICENSE file
- at the top of the source tree.
+ This program is free software, distributed under the terms
+ detailed in the the LICENSE file at the top of the source tree.
 
 """
 import requests
 import json
 from asterisk_rest_api import AsteriskRestAPI
+from asterisk import Asterisk
 from endpoint import Endpoint
 from channel import Channel
 from bridge import Bridge
@@ -41,13 +41,12 @@ class AsteriskPy:
         self._stasis_base = "%s://%s:%s/stasis/api" \
             % (self._protocol, self._host, self._port)
         self._api = AsteriskRestAPI(uri=self._stasis_base)
+        self._asterisk = Asterisk(self._api)
         # parameters for constructors of the other objects
 
     def get_info(self):
         """Return dict of Asterisk system information"""
-        result = self._api.call('asterisk', http_method='GET',
-                                api_method='info')
-        return result
+        return self._asterisk.get_info()
 
     def get_endpoints(self):
         """Return a list of all Endpoints from Asterisk."""

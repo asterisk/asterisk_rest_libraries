@@ -10,23 +10,29 @@
  the project provides a web site, mailing lists and IRC
  channels for your use.
 
- This program is free software, distributed under the terms of
- the GNU General Public License Version 2. See the LICENSE file
- at the top of the source tree.
+ This program is free software, distributed under the terms
+ detailed in the the LICENSE file at the top of the source tree.
 
 """
 
 import sys
-import auto_asteriskpy
-
-
-#HOST = '10.24.67.73'
-HOST = '192.168.1.124'
-PORT = '8088'
+sys.path.append('python/lib')
+import asteriskpy
 
 
 def main(argv):
-    ast = auto_asteriskpy.AsteriskPy(host=HOST, port=PORT)
+    args = {
+        'host' : '192.168.1.124',
+        'port' : '8088'
+    }
+    for a in argv:
+        pieces = a.split("=", 1)
+        try:
+            args[pieces[0].strip('-')] = pieces[1]
+        except:
+            args[pieces[0].strip('-')] = True
+
+    ast = asteriskpy.AsteriskPy(host=args['host'], port=args['port'])
     result = ast.get_info()
     print "Asterisk status is %s" % (result)
 
@@ -50,7 +56,7 @@ def main(argv):
         print "method record returns %s" % (channel.record('rec name'))
         print "method dial returns %s" % (channel.dial())
 
-    chan = auto_asteriskpy.Channel(ast._api)
+    chan = asteriskpy.Channel(ast._api)
     for bridge in bridges:
         print "got bridge with id %s" % (bridge.get_id())
         print "method delete returns %s" % (bridge.delete())

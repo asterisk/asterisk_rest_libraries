@@ -9,9 +9,8 @@
  the project provides a web site, mailing lists and IRC
  channels for your use.
 
- This program is free software, distributed under the terms of
- the GNU General Public License Version 2. See the LICENSE file
- at the top of the source tree.
+ This program is free software, distributed under the terms
+ detailed in the the LICENSE file at the top of the source tree.
 
 """
 
@@ -52,29 +51,31 @@ class Asterisk:
         is_success = True
         return is_success
 
-    def get_recordings(self):
-        """Recordings
+    def get_endpoints(self, withType_string_list=None):
+        """Asterisk endpoints
 
-        List recordings
+        List available endoints
 
         """
         params = {}
+        if withType_string_list:
+            params['withType'] = withType_string_list
 
-        self._api.call('/api/recordings', http_method='GET',
-                       api_method='get_recordings', parameters=params)
+        self._api.call('/api/endpoints', http_method='GET',
+                       api_method='get_endpoints', parameters=params)
         is_success = True
         return is_success
 
-    def get_recording(self):
-        """Individual recording
+    def get_endpoint(self):
+        """Single endpoint
 
-        Get recording details
+        Details for an endpoint
 
         """
         params = {}
 
-        self._api.call('/api/recordings/%s', http_method='GET',
-                       api_method='get_recording', parameters=params,
+        self._api.call('/api/endpoints/%s', http_method='GET',
+                       api_method='get_endpoint', parameters=params,
                        object_id=self.id)
         is_success = True
         return is_success
@@ -133,31 +134,29 @@ class Asterisk:
         is_success = True
         return is_success
 
-    def get_endpoints(self, withType_string_list=None):
-        """Asterisk endpoints
+    def get_recordings(self):
+        """Recordings
 
-        List available endoints
+        List recordings
 
         """
         params = {}
-        if withType_string_list:
-            params['withType'] = withType_string_list
 
-        self._api.call('/api/endpoints', http_method='GET',
-                       api_method='get_endpoints', parameters=params)
+        self._api.call('/api/recordings', http_method='GET',
+                       api_method='get_recordings', parameters=params)
         is_success = True
         return is_success
 
-    def get_endpoint(self):
-        """Single endpoint
+    def get_recording(self):
+        """Individual recording
 
-        Details for an endpoint
+        Get recording details
 
         """
         params = {}
 
-        self._api.call('/api/endpoints/%s', http_method='GET',
-                       api_method='get_endpoint', parameters=params,
+        self._api.call('/api/recordings/%s', http_method='GET',
+                       api_method='get_recording', parameters=params,
                        object_id=self.id)
         is_success = True
         return is_success
