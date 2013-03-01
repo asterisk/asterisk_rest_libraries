@@ -20,6 +20,7 @@ import sys
 import os
 import glob
 import json
+import re
 import requests
 from api import APIClass
 import codewrap
@@ -44,10 +45,12 @@ def main(argv):
 
     """
     classes = []
+    methods_to_move = ['get', 'gets']
     stasis_base = "http://%s:%s/stasis" % (HOST, PORT)
     template_copyright = get_file_content('templates/copyright_notice.bit')
     template_class_def = get_file_content('templates/class_def.proto')
     template_method_def = get_file_content('templates/method_def.proto')
+    asterisk_class = None
 
     for jsonfile in glob.glob("%s/*.json" % (PATH)):
         if jsonfile == "%s/resources.json" % (PATH):
@@ -58,13 +61,45 @@ def main(argv):
 
         classes.append(APIClass(res))
 
+    def sort_asterisk_first(x, y):
+        if x.class_name == 'Asterisk':
+            return -1
+        else:
+            return 1
+
+    classes = sorted(classes, cmp=sort_asterisk_first)
+    asterisk_methods = []
+    def remove_moved(method):
+        if method.method_name in methods_to_move:
+            """Add these to the Asterisk class instead"""
+            asterisk_class.methods.append(method)
+            return False
+        else:
+            return True
+
     for class_ in classes:
+        if class_.class_name == "Asterisk":
+            asterisk_class = class_
+        class_.methods[:] = [m for m in class_.methods if remove_moved(m)]
+
+    for class_ in classes:
+        method_texts = []
+        print "Generating class %s" % (class_.class_name)
         class_def = class_.construct_file_contents(template_class_def,
                                                    template_method_def)
-        method_texts = []
+
         for method in class_.methods:
-            if method.method_name in ['get', 'gets']:
-                continue
+            if method.method_name in methods_to_move:
+                if class_.class_name != 'Asterisk':
+                    continue
+                else:
+                    """Rename from get/gets to get_channel, get_channels"""
+                    method.method_name = re.sub('(s*)$', r'_%s\1' \
+                        % (method.file_name), method.method_name)
+                    method.file_name = 'asterisk'
+
+            print "  method %s.%s" \
+                % (class_.class_name, method.method_name)
             filebit = method.construct_file_contents(template_method_def)
             method_texts.append(filebit)
 

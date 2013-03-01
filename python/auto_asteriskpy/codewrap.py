@@ -32,24 +32,19 @@ def wrap(codestring, width):
     occurance of open parenthesis: (
 
     """
-    print "running wrap"
     code_lines = codestring.split('\n')
-    print "got %s lines" % (code_lines)
     wrapped_code_lines = []
     for line in code_lines:
         if len(line) < width:
             wrapped_code_lines.append(line)
             continue
 
-        print "processing %s" % (line)
         match = re.search('^\s+(def|self._api.call)', line)
         if match:
             new_line = wrap_line(line, width)
             wrapped_code_lines.append(new_line)
-            print new_line
         else:
             wrapped_code_lines.append(line)
-            print line
 
     return '\n'.join(wrapped_code_lines)
 

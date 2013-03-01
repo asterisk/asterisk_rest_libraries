@@ -33,8 +33,7 @@ class APIClassMethod():
         obj_id_re = re.compile('\{\w+\}')
         if obj_id_re.search(self.path):
             self.required_id = True
-            subs = re.subn(obj_id_re, '%s', self.path)
-            self.path = subs[0]
+            self.path = re.sub(obj_id_re, '%s', self.path)
 
     def set_method_summary(self, summary):
         self.method_summary = summary
@@ -112,7 +111,6 @@ class APIClass():
         self.file_name = self.make_file_name(param_obj)
         self.file_name = re.sub('s$', '', self.file_name)
         self.class_name = self.file_name[0].upper() + self.file_name[1:]
-        print "class name is %s" % (self.class_name)
 
         for api in param_obj['apis']:
             if 'operations' not in api:
