@@ -16,14 +16,12 @@ channels for your use.
 """
 
 import sys
-import os
-import glob
 import json
 import re
 import requests
 from api import APIClass
+from utils import *
 import codewrap
-from pprint import pprint
 
 
 class Generator():
@@ -41,7 +39,7 @@ class Generator():
         proper_object_method_def.proto
 
         """
-        args = self.parse_args(argv)
+        args = parse_args(argv)
         if args['dir'] is None and args['url'] is None:
             print "Usage: ./generate_library --lang=language ",\
                   "[--dir=/path/to/resources/ | ",\
@@ -49,13 +47,13 @@ class Generator():
             return 1
 
         methods_to_move = ['get', 'gets']
-        template_copyright = self.get_file_content(
+        template_copyright = get_file_content(
             '%s/templates/copyright.proto' % (args['lang'])
         )
-        template_class_def = self.get_file_content(
+        template_class_def = get_file_content(
             '%s/templates/class_def.proto' % (args['lang'])
         )
-        template_method_def = self.get_file_content(
+        template_method_def = get_file_content(
             '%s/templates/method_def.proto' % (args['lang'])
         )
         asterisk_class = None
@@ -116,11 +114,11 @@ class Generator():
                 file_contents = '\n'.join([file_contents, text])
 
             wrapped_file_contents = codewrap.wrap(file_contents, 79)
-            self.write_file('%s/lib/%s.py' % (args['lang'], class_.file_name),
+            write_file('%s/lib/%s.py' % (args['lang'], class_.file_name),
                             wrapped_file_contents)
 
-        license = self.get_file_content('LICENSE')
-        self.write_file('%s/lib/LICENSE' % args['lang'], license)
+        license = get_file_content('LICENSE')
+        write_file('%s/lib/LICENSE' % args['lang'], license)
 
     def get_resources_from_url(self, url):
         """Appends APIClass objects to self.classes"""
@@ -143,12 +141,12 @@ class Generator():
 
     def get_resources_from_dir(self, path):
         """Appends APIClass objects to self.classes"""
-        resources_json = self.get_file_content("%s/resources.json" % (path))
+        resources_json = get_file_content("%s/resources.json" % (path))
         resources_list = json.loads(resources_json)
         for each_res in resources_list['apis']:
             print each_res
             each_res['path'] = re.sub('\{format\}', 'json', each_res['path'])
-            json_string = self.get_file_content("%s%s" % \
+            json_string = get_file_content("%s%s" % \
                                                 (path, each_res['path']))
             """Allow invalid JSON exception to be raised"""
             res = json.loads(json_string)
@@ -156,34 +154,8 @@ class Generator():
             if res is not None:
                 self.classes.append(APIClass(res))
 
-    def get_file_content(self, filepath):
-        f = open(filepath, 'r')
-        file_content = f.read()
-        f.close()
-        return file_content
-
-    def write_file(self, filepath, contents):
-        f = open(filepath, 'w')
-        f.write(contents)
-        f.close()
-
-    def parse_args(self, argv):
-        argv.pop(0)
-        args = {
-                'dir' : None,
-                'url' : None,
-                'lang' : 'python',
-        }
-        for a in argv:
-            pieces = a.split("=", 1)
-            try:
-                args[pieces[0].strip('-')] = pieces[1]
-            except:
-                args[pieces[0].strip('-')] = True
-
-        return args
 
 if __name__ == "__main__":
-    generator = Generator()
-    res = generator.do(sys.argv)
-    sys.exit(res or 0)
+    GEN = Generator()
+    RES = GEN.do(sys.argv)
+    sys.exit(RES or 0)
