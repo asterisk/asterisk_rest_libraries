@@ -14,15 +14,17 @@
 
 """
 
+
 class Recording:
+    """Definition of Recording object."""
     def __init__(self, api):
         """Initialize the Recording object."""
-        self.id = 1
+        self.object_id = 1
         self._api = api
 
     def get_id(self):
         """Return the Recording object's id."""
-        return self.id
+        return self.object_id
 
     def add_event_handler(self, event_name, handler):
         """Add an event handler for Stasis events on this object.
@@ -46,7 +48,7 @@ class Recording:
 
         self._api.call('/api/recordings/%s', http_method='DELETE',
                        api_method='delete', parameters=params,
-                       object_id=self.id)
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -59,7 +61,8 @@ class Recording:
         params = {}
 
         self._api.call('/api/recordings/%s/stop', http_method='POST',
-                       api_method='stop', parameters=params, object_id=self.id)
+                       api_method='stop', parameters=params,
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -73,7 +76,7 @@ class Recording:
 
         self._api.call('/api/recordings/%s/pause', http_method='POST',
                        api_method='pause', parameters=params,
-                       object_id=self.id)
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -87,7 +90,7 @@ class Recording:
 
         self._api.call('/api/recordings/%s/unpause', http_method='POST',
                        api_method='unpause', parameters=params,
-                       object_id=self.id)
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -100,7 +103,8 @@ class Recording:
         params = {}
 
         self._api.call('/api/recordings/%s/mute', http_method='POST',
-                       api_method='mute', parameters=params, object_id=self.id)
+                       api_method='mute', parameters=params,
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -114,6 +118,6 @@ class Recording:
 
         self._api.call('/api/recordings/%s/unmute', http_method='POST',
                        api_method='unmute', parameters=params,
-                       object_id=self.id)
+                       object_id=self.object_id)
         is_success = True
         return is_success

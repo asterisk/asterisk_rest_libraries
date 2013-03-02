@@ -59,7 +59,7 @@ class AsteriskRestAPI:
         of the response.
 
         """
-        result = {'success' : False, 'response' : None, 'error' : None}
+        result = {'success': False, 'response': None, 'error': None}
         if object_id:
             object_path = object_path % (object_id)
 

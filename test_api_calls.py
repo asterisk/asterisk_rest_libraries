@@ -20,7 +20,6 @@ import os
 import glob
 import json
 import requests
-from pprint import pprint
 
 
 HOST = '192.168.1.124'
@@ -28,7 +27,12 @@ PORT = '8088'
 PATH = '/home/erin/asterisk_rest_libraries'
 
 
-def main(argv):
+def main():
+    """Test Asterisk REST API with HTTP requests derived from Swagger
+    JSON Resources.  This does not use generated code or any piece of
+    the library package.
+
+    """
     os.chdir(PATH)
     for jsonfile in glob.glob("*.json"):
         res = get_JSON_from_file(jsonfile)
@@ -46,19 +50,19 @@ def main(argv):
                         continue
 
                     try:
-                        paramObj = generate_params(op['parameters'])
+                        param_obj = generate_params(op['parameters'])
                     except:
-                        paramObj = {}
+                        param_obj = {}
 
                     try:
                         if op['httpMethod'] == 'GET':
-                            resp = requests.get(uri, params=paramObj)
+                            resp = requests.get(uri, params=param_obj)
                         elif op['httpMethod'] == 'POST':
-                            resp = requests.post(uri, params=paramObj)
+                            resp = requests.post(uri, params=param_obj)
                         elif op['httpMethod'] == 'DELETE':
-                            resp = requests.delete(uri, params=paramObj)
+                            resp = requests.delete(uri, params=param_obj)
                         elif op['httpMethod'] == 'PUT':
-                            resp = requests.put(uri, params=paramObj)
+                            resp = requests.put(uri, params=param_obj)
                     except requests.exceptions.ConnectionError:
                         print "Connection refused"
                         return 1
@@ -77,19 +81,21 @@ def main(argv):
 
 
 def get_JSON_from_file(jsonfile):
+    """Open file, read JSON, parse JSON, return dictionary"""
     f = open(PATH + "/" + jsonfile, 'r')
-    jsonString = f.read()
+    json_string = f.read()
     f.close()
     try:
-        res = json.loads(jsonString)
-    except Exception, e:
-        print e
+        res = json.loads(json_string)
+    except e:
+        #print e
         pass
 
     return res
 
 
 def generate_params(ops):
+    """Generate example parameters as required for use in REST API call."""
     res = {}
     for op in ops:
         if op['dataType'] == 'string':
@@ -111,4 +117,4 @@ def generate_params(ops):
     return res
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv) or 0)
+    sys.exit(main() or 0)

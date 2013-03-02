@@ -14,15 +14,17 @@
 
 """
 
+
 class Endpoint:
+    """Definition of Endpoint object."""
     def __init__(self, api):
         """Initialize the Endpoint object."""
-        self.id = 1
+        self.object_id = 1
         self._api = api
 
     def get_id(self):
         """Return the Endpoint object's id."""
-        return self.id
+        return self.object_id
 
     def add_event_handler(self, event_name, handler):
         """Add an event handler for Stasis events on this object.

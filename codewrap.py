@@ -15,7 +15,6 @@
 """
 
 
-import sys
 import re
 
 
@@ -47,6 +46,7 @@ def wrap(codestring, width):
 
     return '\n'.join(wrapped_code_lines)
 
+
 def wrap_line(text, width):
     """
     A word-wrap function that preserves existing line breaks
@@ -56,23 +56,23 @@ def wrap_line(text, width):
     Loop through iterable created by splitting the text by a space.
     Construct lines with words and spaces until $width is reached.
     Start a new line with a newline when $width is reached.
+
     """
     paren_index = text.find('(')
     indent = ' ' * (paren_index+1)
 
     def make_delimiter(line, word, width):
+        """Determine whether we will add this word to the current line
+        or begin a new line.
+
+        """
         isbreak = len(line)-line.rfind('\n')-1 + \
-            len(word.split('\n',1)[0]) >= width
+            len(word.split('\n', 1)[0]) >= width
         if isbreak:
             return '\n%s' % (indent)
         else:
             return ' '
 
     return reduce(lambda line, word, width=width: '%s%s%s' %
-        (
-            line,
-            make_delimiter(line, word, width),
-            word
-        ),
-        text.split(' ')
-    )
+                  (line, make_delimiter(line, word, width),
+                  word), text.split(' '))

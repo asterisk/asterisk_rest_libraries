@@ -17,6 +17,7 @@ channels for your use.
 
 
 def get_file_content(filepath):
+    """Open a file and return the contents in a string."""
     f = open(filepath, 'r')
     file_content = f.read()
     f.close()
@@ -24,17 +25,19 @@ def get_file_content(filepath):
 
 
 def write_file(filepath, contents):
+    """Open a file and overwrite it with the string 'contents'"""
     f = open(filepath, 'w')
     f.write(contents)
     f.close()
 
 
 def parse_args(argv):
+    """Parse arguments into a dictionary. Supports only --blah=some format."""
     argv.pop(0)
     args = {
-            'dir' : None,
-            'url' : None,
-            'lang' : 'python',
+        'dir': None,
+        'url': None,
+        'lang': 'python',
     }
     for a in argv:
         pieces = a.split("=", 1)

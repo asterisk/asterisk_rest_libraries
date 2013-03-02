@@ -21,9 +21,10 @@ import asteriskpy
 
 
 def main(argv):
+    """Test automatically generated python module."""
     args = {
-        'host' : '192.168.1.124',
-        'port' : '8088'
+        'host': '192.168.1.124',
+        'port': '8088'
     }
     for a in argv:
         pieces = a.split("=", 1)
@@ -40,8 +41,8 @@ def main(argv):
     channels = ast.get_channels()
     bridges = ast.get_bridges()
     recordings = ast.get_recordings()
-    channel = ast.create_channel({'tech' : 'dummy_params'})
-    bridge = ast.create_bridge({'tech' : 'dummy_params'})
+    channel = ast.create_channel({'tech': 'dummy_params'})
+    bridge = ast.create_bridge({'tech': 'dummy_params'})
 
     for endpoint in endpoints:
         print "got endpoint with id %s" % (endpoint.get_id())
