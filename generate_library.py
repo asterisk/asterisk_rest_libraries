@@ -46,6 +46,8 @@ class Generator():
         args = parse_args(argv)
         methods_to_move = ['get', 'gets']
         asterisk_class = None
+        config = json.loads(get_file_content("%s/config.json" %
+                                             (args['lang'])))
 
         def remove_moved(method):
             """Remove get* methods from this class and add to Asterisk"""
@@ -113,8 +115,8 @@ class Generator():
                 file_contents = '\n'.join([file_contents, text])
 
             wrapped_file_contents = codewrap.wrap(file_contents, 79)
-            write_file('%s/lib/%s.py' % (args['lang'], class_.file_name),
-                       wrapped_file_contents)
+            write_file('%s/lib/%s.%s' % (args['lang'], class_.file_name,
+                       config['file_extension']), wrapped_file_contents)
 
         license_content = get_file_content('LICENSE')
         write_file('%s/lib/LICENSE' % args['lang'], license_content)
