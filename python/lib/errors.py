@@ -16,8 +16,9 @@
 
 
 class AsteriskPyAccessException(Exception):
-    def __init__(self, m):
-        self.message = m
+    """Indicate this module cannot access Asterisk."""
+    def __init__(self, message):
+        self.message = message
 
     def __str__(self):
         return self.message
