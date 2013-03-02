@@ -4,17 +4,19 @@ use strict;
 use LWP::UserAgent;
 use Data::Dumper;
 use JSON;
+use ParseArgs;
 
-my $HOST = '192.168.1.124';
-#my $HOST = '10.24.67.73';
-my $PORT = '8088';
-my $REQ = $ARGV[0];
-my $JSON_PATH = '/home/erin/api_stuff';
+my $defaults = {
+	'host' => '192.168.1.124',
+	'port' => '8088',
+	'path' => 'test_resources',
+};
+my $args = ParseArgs::parse(\@ARGV, $defaults);
 
 my $ua = LWP::UserAgent->new;
 my $j = JSON->new->utf8;
 
-foreach my $file (glob("$JSON_PATH/*.json")) {
+foreach my $file (glob($args->{'path'} . "/*.json")) {
 	# skip if file size is 0
 	next if -z $file;
 	my $res = get_JSON_from_file($file);
@@ -27,10 +29,10 @@ foreach my $file (glob("$JSON_PATH/*.json")) {
 		# skip if there are no operations
 		next if !$api->{'operations'};
 		foreach my $op (@{$api->{'operations'}}) {
-			my $uri = "http://$HOST:$PORT/stasis" . $api->{'path'};
+			my $uri = "http://" . $args->{'host'} . ":" . $args->{'port'}
+				. "/stasis" . $api->{'path'};
 			if ($uri =~ /[{}]/) {
-				print "\tSkipping object-specific request\n";
-				next;
+				$uri =~ s/\{\w+\}/1/i;
 			}
 			my $paramObj = generate_params($op->{'parameters'});
 			my $response;
@@ -110,4 +112,3 @@ sub make_param_string($) {
 	}
 	return '?' . join('&', @$strings);
 }
-
