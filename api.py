@@ -14,6 +14,7 @@
 
 """
 import re
+from utils import *
 
 
 class APIClassMethod():
@@ -24,10 +25,10 @@ class APIClassMethod():
         """Initiate APIClassMethod instance
 
         """
-        self.param_dict_lines = ['params = {}']
         self.http_method = param_obj['http_method']
         self.path = param_obj['path']
         self.file_name = param_obj['file_name']
+        self.lang = param_obj['lang']
         self.method_params = ['self']
         self.required_id = False
         self.api_summary = ''
@@ -38,6 +39,10 @@ class APIClassMethod():
         if obj_id_re.search(self.path):
             self.required_id = True
             self.path = re.sub(obj_id_re, '%s', self.path)
+
+        self.param_lines = [get_file_content(
+                            '%s/templates/method_params_def.proto'
+                            % self.lang)]
 
     def set_method_summary(self, summary):
         """Set the method summary"""
@@ -61,24 +66,22 @@ class APIClassMethod():
              query='both'
 
         """
+        t_attr = get_file_content('%s/templates/method_params_attr.proto'
+                                  % self.lang)
         for p in param_obj:
             if p['name'] == "%sId" % (self.file_name):
                 continue
 
             param_name = "%s_%s" % (p['name'], p['dataType'])
-            print "param_name: %s" % (param_name)
 
             if 'allowMultiple' in p and p['allowMultiple']:
                 param_name = param_name + "_list"
 
-            print "param_name: %s" % (param_name)
             param_name = re.sub('([A-Z]{1,1})', r'_\1', param_name)
-            print "param_name: %s" % (param_name)
             param_name = param_name.lower()
-            print "param_name: %s" % (param_name)
-            self.param_dict_lines.append("        if %s:" % (param_name))
-            self.param_dict_lines.append("            params['%s'] = %s"
-                                         % (p['name'], param_name))
+            attr = re.sub('\{ATTR_NAME\}', param_name, t_attr)
+            attr = re.sub('\{ATTR_ORIG_NAME\}', p['name'], attr)
+            self.param_lines.append(attr)
 
             if 'defaultValue' in p:
                 p['defaultValue'] = "'%s'" % (p['defaultValue'])
@@ -93,10 +96,12 @@ class APIClassMethod():
         """Return the string of all method parameters for method definition"""
         return ', '.join(self.method_params)
 
-    def construct_file_contents(self, template):
+    def construct_file_contents(self):
         """Construct and return the contents of the method definition"""
-        template = re.sub('\{API_METHOD_NAME\}', self.method_name, template)
-        template = re.sub('\{PARAMS\}', self.get_param_string(), template)
+        t_method = get_file_content('%s/templates/method_def.proto'
+                                    % self.lang)
+        t_method = re.sub('\{API_METHOD_NAME\}', self.method_name, t_method)
+        t_method = re.sub('\{PARAMS\}', self.get_param_string(), t_method)
         params = ["'%s'" % (self.path),
                   "http_method='%s'" % (self.http_method)]
         if self.method_name:
@@ -106,15 +111,15 @@ class APIClassMethod():
         if self.required_id:
             params.append("object_id=self.object_id")
 
-        template = re.sub('\{API_CALL_PARAMS\}', ', '.join(params), template)
+        t_method = re.sub('\{API_CALL_PARAMS\}', ', '.join(params), t_method)
         method_comment = ''
-        method_comment = '"""%s\n\n        %s\n\n        """' \
+        method_comment = '        """%s\n\n        %s\n\n        """' \
             % (self.api_summary, self.method_summary)
-        template = re.sub('\{METHOD_COMMENTS\}', method_comment, template)
-        template = re.sub('\{BUILD_API_CALL_PARAMS\}',
-                          '\n'.join(self.param_dict_lines), template)
+        t_method = re.sub('\{METHOD_COMMENTS\}', method_comment, t_method)
+        t_method = re.sub('\{BUILD_API_CALL_PARAMS\}',
+                          ''.join(self.param_lines), t_method)
 
-        return template
+        return t_method
 
 
 class APIClass():
@@ -125,6 +130,7 @@ class APIClass():
     def __init__(self, param_obj):
         """Initiate new APIClass object"""
         self.methods = []
+        self.lang = param_obj['lang']
 
         try:
             resource = param_obj['resourcePath']
@@ -155,6 +161,7 @@ class APIClass():
                     'http_method': op['httpMethod'],
                     'file_name': self.file_name,
                     'path': api['path'],
+                    'lang': self.lang
                 })
                 if 'parameters' in op:
                     method.set_parameters(op['parameters'])
@@ -167,12 +174,13 @@ class APIClass():
 
                 self.methods.append(method)
 
-    def construct_file_contents(self, template):
+    def construct_file_contents(self):
         """Construct and return the class definition for the file
         We can't construct methods here, because we need to move some
         methods to the Asterisk class.
 
         """
+        template = get_file_content('%s/templates/class_def.proto' % self.lang)
         template = re.sub('\{CLASS_NAME\}', self.class_name, template)
         template = re.sub('\{FILE_NAME\}', self.file_name, template)
         return template

@@ -71,17 +71,11 @@ class Generator():
         template_copyright = get_file_content(
             '%s/templates/copyright.proto' % (args['lang'])
         )
-        template_class_def = get_file_content(
-            '%s/templates/class_def.proto' % (args['lang'])
-        )
-        template_method_def = get_file_content(
-            '%s/templates/method_def.proto' % (args['lang'])
-        )
 
         if args['dir']:
-            self.get_resources_from_dir(args['dir'])
+            self.get_resources_from_dir(args['dir'], args['lang'])
         elif args['url']:
-            self.get_resources_from_url(args['url'])
+            self.get_resources_from_url(args['url'], args['lang'])
 
         if len(self.classes) == 0:
             print "No resources found. Are you using Asterisk 12 or later?"
@@ -92,7 +86,7 @@ class Generator():
         for class_ in self.classes:
             method_texts = []
             print "Generating class %s" % (class_.class_name)
-            class_def = class_.construct_file_contents(template_class_def)
+            class_def = class_.construct_file_contents()
 
             for method in class_.methods:
                 if method.method_name in methods_to_move:
@@ -107,7 +101,7 @@ class Generator():
 
                 print "  method %s.%s" \
                     % (class_.class_name, method.method_name)
-                filebit = method.construct_file_contents(template_method_def)
+                filebit = method.construct_file_contents()
                 method_texts.append(filebit)
 
             file_contents = '\n\n'.join([template_copyright, class_def])
@@ -121,7 +115,7 @@ class Generator():
         license_content = get_file_content('LICENSE')
         write_file('%s/lib/LICENSE' % args['lang'], license_content)
 
-    def get_resources_from_url(self, url):
+    def get_resources_from_url(self, url, lang):
         """Get JSON Swagger resources from Asterisk and
         appends APIClass created from them to self.classes
 
@@ -141,9 +135,10 @@ class Generator():
             res = json.loads(response.text)
 
             if res is not None:
+                res['lang'] = lang
                 self.classes.append(APIClass(res))
 
-    def get_resources_from_dir(self, path):
+    def get_resources_from_dir(self, path, lang):
         """Get JSON Swagger resources from files and
         appends APIClass created from them to self.classes
 
@@ -159,6 +154,7 @@ class Generator():
             res = json.loads(json_string)
 
             if res is not None:
+                res['lang'] = lang
                 self.classes.append(APIClass(res))
 
 
