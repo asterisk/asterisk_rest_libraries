@@ -35,7 +35,7 @@ class Generator():
     def run(self, argv):
         """Make API self.classes
 
-        Parse Swagger JSON files and make python API self.classes.
+        Parse Swagger JSON files and make API classes.
 
         Uses:
         copyright_notice.bit
@@ -46,7 +46,6 @@ class Generator():
         args = parse_args(argv)
         methods_to_move = ['get', 'gets']
         asterisk_class = None
-        self.classes = []
 
         def remove_moved(method):
             """Remove get* methods from this class and add to Asterisk"""
