@@ -47,6 +47,14 @@ class Generator():
         args = parse_args(argv)
         methods_to_move = ['get', 'gets']
         asterisk_class = None
+        if ((args['dir'] is None or args['dir'] == '') \
+                and (args['url'] is None or args['url'] == '')) \
+                or args['lang'] is None or args['lang'] == '':
+            print "Usage: ./generate_library --lang=language ", \
+                  "[--dir=/path/to/resources/ | ", \
+                  "--url=http://localhost:8088/stasis] "
+            return 1
+
         config = json.loads(get_file_content("%s/config.json" %
                                              (args['lang'])))
 
@@ -63,11 +71,6 @@ class Generator():
             if class_.class_name == "Asterisk":
                 asterisk_class = class_
             class_.methods[:] = [m for m in class_.methods if remove_moved(m)]
-        if args['dir'] is None and args['url'] is None:
-            print "Usage: ./generate_library --lang=language ", \
-                  "[--dir=/path/to/resources/ | ", \
-                  "--url=http://localhost:8088/stasis] "
-            return 1
 
         template_copyright = get_file_content(
             '%s/templates/copyright.proto' % (args['lang'])
