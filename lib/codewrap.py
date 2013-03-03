@@ -18,6 +18,16 @@
 import re
 
 
+"""List of tuples defining lines to wrap.  The first element is a string to
+match to idenfity the line. The second is a string at whose index to indent
+the next line"""
+replacements = [
+    ('def', '('),
+    ('self._api.call', '('),
+    ('"""', '"""'),
+]
+
+
 def wrap(codestring, width):
     """Wrap code created by AsteriskPy to a certain width.
 
@@ -37,17 +47,21 @@ def wrap(codestring, width):
             wrapped_code_lines.append(line)
             continue
 
-        match = re.search('^\s+(def|self._api.call)', line)
-        if match:
-            new_line = wrap_line(line, width)
-            wrapped_code_lines.append(new_line)
-        else:
+        matched = None
+        for each in replacements:
+            match = re.search('^\s+(%s)' % (each[0]), line)
+            if match is not None:
+                matched = True
+                new_line = wrap_line(line, width, each[1])
+                wrapped_code_lines.append(new_line)
+
+        if matched is None:
             wrapped_code_lines.append(line)
 
     return '\n'.join(wrapped_code_lines)
 
 
-def wrap_line(text, width):
+def wrap_line(text, width, indent_marker):
     """
     A word-wrap function that preserves existing line breaks
     and most spaces in the text. Expects that existing line
@@ -58,7 +72,7 @@ def wrap_line(text, width):
     Start a new line with a newline when $width is reached.
 
     """
-    paren_index = text.find('(')
+    paren_index = text.find(indent_marker)
     indent = ' ' * (paren_index+1)
 
     def make_delimiter(line, word, width):

@@ -21,7 +21,7 @@ import json
 import re
 import requests
 from api import APIClass
-from utils import *
+from utils import parse_args, write_file, get_file_content
 import codewrap
 
 
@@ -47,7 +47,7 @@ class Generator():
         args = parse_args(argv)
         methods_to_move = ['get', 'gets']
         asterisk_class = None
-        if ((args['dir'] is None or args['dir'] == '') \
+        if ((args['dir'] is None or args['dir'] == '')
                 and (args['url'] is None or args['url'] == '')) \
                 or args['lang'] is None or args['lang'] == '':
             print "Usage: ./generate_library --lang=language ", \

@@ -39,11 +39,7 @@ class Bridge:
         pass
 
     def new(self):
-        """Active bridges
-
-        Create a new bridge
-
-        """
+        """Active bridges; Create a new bridge"""
         params = {}
 
         self._api.call('/api/bridges', http_method='POST', api_method='new',
@@ -52,11 +48,7 @@ class Bridge:
         return is_success
 
     def delete(self):
-        """Individual bridge
-
-        Delete bridge
-
-        """
+        """Individual bridge; Delete bridge"""
         params = {}
 
         self._api.call('/api/bridges/%s', http_method='DELETE',
@@ -66,11 +58,7 @@ class Bridge:
         return is_success
 
     def add_channel_to(self, channel_string_list=None):
-        """Add a channel to a bridge
-
-        Add a channel to a bridge
-
-        """
+        """Add a channel to a bridge"""
         params = {}
         if channel_string_list:
             params['channel'] = channel_string_list
@@ -82,11 +70,7 @@ class Bridge:
         return is_success
 
     def remove_channel_from(self, channel_string_list=None):
-        """Remove a channel from a bridge
-
-        Remove a channel from a bridge
-
-        """
+        """Remove a channel from a bridge"""
         params = {}
         if channel_string_list:
             params['channel'] = channel_string_list
@@ -100,11 +84,7 @@ class Bridge:
     def record(self, name_string=None, max_duration_seconds_number='0',
                max_silence_seconds_number='0', append_boolean='False',
                beep_boolean='False', terminate_on_string='none'):
-        """Record audio to/from a bridge
-
-        Start a recording
-
-        """
+        """Record audio to/from a bridge; Start a recording"""
         params = {}
         if name_string:
             params['name'] = name_string

@@ -40,11 +40,7 @@ class Channel:
 
     def originate(self, endpoint_string=None, extension_string=None,
                   context_string=None):
-        """Active channels
-
-        Create a new channel (originate)
-
-        """
+        """Active channels; Create a new channel (originate)"""
         params = {}
         if endpoint_string:
             params['endpoint'] = endpoint_string
@@ -59,11 +55,7 @@ class Channel:
         return is_success
 
     def delete(self):
-        """Active channel
-
-        Delete (i.e. hangup) a channel
-
-        """
+        """Active channel; Delete (i.e. hangup) a channel"""
         params = {}
 
         self._api.call('/api/channels/%s', http_method='DELETE',
@@ -74,11 +66,7 @@ class Channel:
 
     def dial(self, endpoint_string=None, extension_string=None,
              context_string=None):
-        """Create a new channel (originate) and bridge to this channel
-
-        Create a new channel (originate) and bridge to this channel
-
-        """
+        """Create a new channel (originate) and bridge to this channel"""
         params = {}
         if endpoint_string:
             params['endpoint'] = endpoint_string
@@ -94,11 +82,7 @@ class Channel:
         return is_success
 
     def continue_in_dialplan(self):
-        """Exit application; continue execution in the dialplan
-
-        Exit application; continue execution in the dialplan
-
-        """
+        """Exit application; continue execution in the dialplan"""
         params = {}
 
         self._api.call('/api/channels/%s/continue', http_method='POST',
@@ -108,11 +92,7 @@ class Channel:
         return is_success
 
     def reject(self):
-        """Reject a channel
-
-        Reject a channel
-
-        """
+        """Reject a channel"""
         params = {}
 
         self._api.call('/api/channels/%s/reject', http_method='POST',
@@ -122,11 +102,7 @@ class Channel:
         return is_success
 
     def answer(self):
-        """Answer a channel
-
-        Answer a channel
-
-        """
+        """Answer a channel"""
         params = {}
 
         self._api.call('/api/channels/%s/answer', http_method='POST',
@@ -136,11 +112,7 @@ class Channel:
         return is_success
 
     def mute(self, direction_string='both'):
-        """Mute a channel
-
-        Mute a channel
-
-        """
+        """Mute a channel"""
         params = {}
         if direction_string:
             params['direction'] = direction_string
@@ -152,11 +124,7 @@ class Channel:
         return is_success
 
     def unmute(self, direction_string='both'):
-        """Unmute a channel
-
-        Unmute a channel
-
-        """
+        """Unmute a channel"""
         params = {}
         if direction_string:
             params['direction'] = direction_string
@@ -170,11 +138,7 @@ class Channel:
     def record(self, name_string=None, max_duration_seconds_number='0',
                max_silence_seconds_number='0', append_boolean='False',
                beep_boolean='False', terminate_on_string='none'):
-        """Record audio to/from a channel
-
-        Start a recording
-
-        """
+        """Record audio to/from a channel; Start a recording"""
         params = {}
         if name_string:
             params['name'] = name_string

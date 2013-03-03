@@ -14,7 +14,7 @@
 
 """
 import re
-from utils import *
+from utils import get_file_content
 
 
 class APIClassMethod():
@@ -29,6 +29,7 @@ class APIClassMethod():
         self.path = param_obj['path']
         self.file_name = param_obj['file_name']
         self.lang = param_obj['lang']
+        self.lang_tools = param_obj['lang_tools']
         self.method_params = ['self']
         self.required_id = False
         self.api_summary = ''
@@ -51,13 +52,6 @@ class APIClassMethod():
     def set_api_summary(self, summary):
         """Set the class summary"""
         self.api_summary = summary
-
-    def set_method_name(self, nickname):
-        """Set the method name"""
-        self.method_name = re.sub('([A-Z]{1,1})', r'_\1', nickname)
-        self.method_name = self.method_name.lower()
-        self.method_name = self.method_name.replace('_%s'
-                                                    % (self.file_name), '')
 
     def set_parameters(self, param_obj):
         """Construct an array of required and optional method parameters
@@ -112,9 +106,8 @@ class APIClassMethod():
             params.append("object_id=self.object_id")
 
         t_method = re.sub('\{API_CALL_PARAMS\}', ', '.join(params), t_method)
-        method_comment = ''
-        method_comment = '        """%s\n\n        %s\n\n        """' \
-            % (self.api_summary, self.method_summary)
+        method_comment = self.lang_tools.make_method_comment(
+            self.api_summary, self.method_summary)
         t_method = re.sub('\{METHOD_COMMENTS\}', method_comment, t_method)
         t_method = re.sub('\{BUILD_API_CALL_PARAMS\}',
                           ''.join(self.param_lines), t_method)
@@ -149,8 +142,9 @@ class APIClass():
         if self.file_name is None:
             raise AttributeError("No file name.")
 
-        self.file_name = re.sub('s$', '', self.file_name)
-        self.class_name = self.file_name[0].upper() + self.file_name[1:]
+        lang_tools = __import__(self.lang)
+        self.file_name = lang_tools.make_filename(self.file_name)
+        self.class_name = lang_tools.make_class_name(self.file_name)
 
         for api in param_obj['apis']:
             if 'operations' not in api:
@@ -161,7 +155,8 @@ class APIClass():
                     'http_method': op['httpMethod'],
                     'file_name': self.file_name,
                     'path': api['path'],
-                    'lang': self.lang
+                    'lang': self.lang,
+                    'lang_tools': lang_tools,
                 })
                 if 'parameters' in op:
                     method.set_parameters(op['parameters'])
@@ -170,7 +165,8 @@ class APIClass():
                 if 'summary' in op:
                     method.set_method_summary(op['summary'])
                 if 'nickname' in op:
-                    method.set_method_name(op['nickname'])
+                    method.method_name = lang_tools.make_method_name(
+                        op['nickname'], self.class_name)
 
                 self.methods.append(method)
 

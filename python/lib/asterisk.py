@@ -39,11 +39,8 @@ class Asterisk:
         pass
 
     def get_info(self, only_string_list=None):
-        """Asterisk system information (similar to core show settings)
-
-        Gets Asterisk system information
-
-        """
+        """Asterisk system information (similar to core show settings); Gets
+         Asterisk system information"""
         params = {}
         if only_string_list:
             params['only'] = only_string_list

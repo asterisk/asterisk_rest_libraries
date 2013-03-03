@@ -15,11 +15,11 @@
 """
 import requests
 import json
-import re
-from errors import *
+from errors import AsteriskPyAccessException
 
 
 class AsteriskRestAPI:
+    """Handle HTTP requests to Asterisk."""
     def __init__(self, uri='localhost'):
         """Initiate new AsteriskRestAPI instance.
 
@@ -80,7 +80,7 @@ class AsteriskRestAPI:
             elif http_method == 'PUT':
                 resp = requests.put(request_uri, params=parameters)
         except requests.exceptions.ConnectionError:
-            raise self.AsteriskPyAccessException(
+            raise AsteriskPyAccessException(
                 "Cannot access URI %s" % (request_uri)
             )
 
@@ -114,10 +114,3 @@ class AsteriskRestAPI:
         For object-specific events, use the object's add_event_handler instead.
         """
         pass
-
-    class AsteriskPyAccessException(Exception):
-        def __init__(self, m):
-            self.message = m
-
-        def __str__(self):
-            return self.message

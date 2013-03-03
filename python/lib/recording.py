@@ -39,11 +39,7 @@ class Recording:
         pass
 
     def delete(self):
-        """Individual recording
-
-        Delete recording
-
-        """
+        """Individual recording; Delete recording"""
         params = {}
 
         self._api.call('/api/recordings/%s', http_method='DELETE',
@@ -53,11 +49,7 @@ class Recording:
         return is_success
 
     def stop(self):
-        """
-
-        Stop recording
-
-        """
+        """Stop recording"""
         params = {}
 
         self._api.call('/api/recordings/%s/stop', http_method='POST',
@@ -67,11 +59,7 @@ class Recording:
         return is_success
 
     def pause(self):
-        """
-
-        Pause recording
-
-        """
+        """Pause recording"""
         params = {}
 
         self._api.call('/api/recordings/%s/pause', http_method='POST',
@@ -81,11 +69,7 @@ class Recording:
         return is_success
 
     def unpause(self):
-        """
-
-        Unpause recording
-
-        """
+        """Unpause recording"""
         params = {}
 
         self._api.call('/api/recordings/%s/unpause', http_method='POST',
@@ -95,11 +79,7 @@ class Recording:
         return is_success
 
     def mute(self):
-        """
-
-        Mute recording
-
-        """
+        """Mute recording"""
         params = {}
 
         self._api.call('/api/recordings/%s/mute', http_method='POST',
@@ -109,11 +89,7 @@ class Recording:
         return is_success
 
     def unmute(self):
-        """
-
-        Unmute recording
-
-        """
+        """Unmute recording"""
         params = {}
 
         self._api.call('/api/recordings/%s/unmute', http_method='POST',
