@@ -4,6 +4,7 @@ use strict;
 use LWP::UserAgent;
 use Data::Dumper;
 use JSON;
+use lib 'lib';
 use ParseArgs;
 
 my $defaults = {

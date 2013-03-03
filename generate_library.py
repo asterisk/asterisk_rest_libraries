@@ -16,6 +16,7 @@ channels for your use.
 """
 
 import sys
+sys.path.append("lib")
 import json
 import re
 import requests
