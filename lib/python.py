@@ -105,6 +105,7 @@ def make_method_comment(class_desc, method_desc):
         method_comments.append(method_desc)
     return '        """%s"""' % ('; '.join(method_comments))
 
+
 def make_api_call_params(method):
     """Format the parameters to the call() method in asterisk_rest_api, the
     util module which handles HTTP requests to Asterisk."""
