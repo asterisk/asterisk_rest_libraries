@@ -74,7 +74,7 @@ class Generator():
 
         template_copyright = get_file_content(
             '%s/templates/copyright.proto' % (args['lang'])
-        )
+        ) + '\n'
 
         if args['dir']:
             self.get_resources_from_dir(args['dir'], args['lang'])
@@ -108,13 +108,17 @@ class Generator():
                 filebit = method.construct_file_contents()
                 method_texts.append(filebit)
 
-            file_contents = '\n\n'.join([template_copyright, class_def])
-            for text in method_texts:
-                file_contents = '\n'.join([file_contents, text])
+            methods_blob = '\n\n'.join(method_texts)
+            if methods_blob != '':
+                # Handle different number of newlines if we have no methods
+                # to add.
+                methods_blob = '\n' + methods_blob
 
-            wrapped_file_contents = codewrap.wrap(file_contents, 79)
+            class_def = re.sub('\{CLASS_METHODS\}', methods_blob, class_def)
+            file_contents = '\n\n'.join([template_copyright, class_def])
+            file_contents = codewrap.wrap(file_contents, 79)
             write_file('%s/lib/%s.%s' % (args['lang'], class_.file_name,
-                       config['file_extension']), wrapped_file_contents)
+                       config['file_extension']), file_contents)
 
         license_content = get_file_content('LICENSE')
         write_file('%s/lib/LICENSE' % args['lang'], license_content)

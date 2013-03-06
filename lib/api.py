@@ -55,6 +55,7 @@ class APIClassMethod():
         self.api_summary = summary
 
     def set_parameters(self, param_obj):
+        """Set the parameters dict."""
         self.param_obj = param_obj
 
     def construct_file_contents(self):
@@ -72,7 +73,7 @@ class APIClassMethod():
             self.api_summary, self.method_summary)
         t_method = re.sub('\{METHOD_COMMENTS\}', method_comment, t_method)
         t_method = re.sub('\{BUILD_API_CALL_PARAMS\}',
-                          ''.join(self.param_lines), t_method)
+                          '\n'.join(self.param_lines), t_method)
 
         return t_method
 

@@ -17,17 +17,21 @@ channels for your use.
 
 
 def get_file_content(filepath):
-    """Open a file and return the contents in a string."""
+    """Open a file and return the contents in a string.
+    We will only strip newlines and will leave other whitespace in place.
+    """
     f = open(filepath, 'r')
-    file_content = f.read()
+    file_content = f.read().strip('\n')
     f.close()
     return file_content
 
 
 def write_file(filepath, contents):
-    """Open a file and overwrite it with the string 'contents'"""
+    """Strip all newlines from beginning and end of contents. Add one newline
+    to contents. Open a file and overwrite it with contents."""
+    contents = contents.strip('\n')
     f = open(filepath, 'w')
-    f.write(contents)
+    f.write(contents + '\n')
     f.close()
 
 
