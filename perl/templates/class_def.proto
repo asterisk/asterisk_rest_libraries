@@ -1,0 +1,37 @@
+package AsteriskPl::{CLASS_NAME};
+
+sub new {
+	# Definition of {CLASS_NAME} object
+	my ($class, %self) = @_;
+	$self{'object_id'} = 1;
+	if (ref $self{'api'} ne 'AsteriskPl::AsteriskRESTAPI') {
+		die("Can't make new AsteriskPl::Asterisk instance with no "
+			. "AsteriskPl::AsteriskRESTAPI instance.");
+	}
+	bless \%self, $class;
+	return \%self;
+}
+
+sub get_id {
+	# Return the {CLASS_NAME} object's id.
+	my $self = shift;
+	return $self->{'object_id'}
+}
+
+sub add_event_handler {
+	# Add an event handler for Stasis events on this object.
+	# For general events, use Asterisk.add_event_handler instead.
+	my $self = shift;
+	my $event_name = shift;
+	my $handler = shift;
+}
+
+sub remove_event_handler {
+	# Remove an event handler for Stasis events on this object.
+	# For general events, use Asterisk.remove_event_handler instead.
+	my $self = shift;
+	my $event_name = shift;
+	my $handler = shift;
+}
+{CLASS_METHODS}
+1;

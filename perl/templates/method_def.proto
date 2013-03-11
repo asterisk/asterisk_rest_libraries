@@ -1,0 +1,9 @@
+sub {API_METHOD_NAME} {
+{METHOD_COMMENTS}
+	my $self = shift;
+{PARAMS}
+{BUILD_API_CALL_PARAMS}
+	$is_success = $self->{'api'}->call({API_CALL_PARAMS});
+	$is_success = 1;
+	return $is_success;
+}

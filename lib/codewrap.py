@@ -18,10 +18,10 @@
 import re
 
 
-"""List of tuples defining lines to wrap.  The first element is a string to
-match to idenfity the line. The second is a string at whose index to indent
-the next line"""
-replacements = [
+# List of tuples defining lines to wrap.  The first element is a string to
+# match to idenfity the line. The second is a string at whose index to indent
+# the next line.
+REPLACEMENTS = [
     ('def', '('),
     ('self._api.call', '('),
     ('"""', '"""'),
@@ -48,7 +48,7 @@ def wrap(codestring, width):
             continue
 
         matched = None
-        for each in replacements:
+        for each in REPLACEMENTS:
             match = re.search('^\s+(%s)' % (each[0]), line)
             if match is not None:
                 matched = True

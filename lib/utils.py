@@ -47,7 +47,7 @@ def parse_args(argv):
         pieces = a.split("=", 1)
         try:
             args[pieces[0].strip('-')] = pieces[1]
-        except AttributeError:
+        except IndexError:
             args[pieces[0].strip('-')] = True
 
     return args

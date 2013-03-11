@@ -1,0 +1,4 @@
+	my ${ATTR_NAME} = shift;
+	if (${ATTR_NAME}){
+		$params->{'{ATTR_ORIG_NAME}'} = ${ATTR_NAME};
+	}

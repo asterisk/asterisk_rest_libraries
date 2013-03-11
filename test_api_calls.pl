@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 use strict;
 use LWP::UserAgent;
@@ -20,9 +20,9 @@ my $j = JSON->new->utf8;
 foreach my $file (glob($args->{'path'} . "/*.json")) {
 	# skip if file size is 0
 	next if -z $file;
-	my $res = get_JSON_from_file($file);
 
 	# skip if JSON is missing some key things
+	my $res = get_JSON_from_file($file);
 	next if !$res->{'apis'};
 	next if !$res->{'resourcePath'};
 
@@ -42,21 +42,21 @@ foreach my $file (glob($args->{'path'} . "/*.json")) {
 				$response = $ua->get("$uri$paramString");
 			} elsif ($op->{'httpMethod'} eq 'POST') {
 				$response = $ua->post($uri, $paramObj);
-			#} elsif ($op->{'httpMethod'} eq 'DELETE') {
-			#	my $paramString = make_param_string($paramObj);
-			#	$response = $ua->delete("$uri$paramString");
+			} elsif ($op->{'httpMethod'} eq 'DELETE') {
+				my $paramString = make_param_string($paramObj);
+				$response = $ua->delete("$uri$paramString");
 			} elsif ($op->{'httpMethod'} eq 'PUT') {
 				$response = $ua->put($uri, $paramObj);
 			}
 			next if !$response;
-			print $op->{'responseClass'}, ' ', $op->{'httpMethod'}, ' ',
-				$uri, "\n";
+			print sprintf("%s %s %s\n", $op->{'responseClass'},
+				$op->{'httpMethod'}, $uri);
 			if ($response->content =~ /connection refused/i) {
 				print "Can't contact server.\n";
 				exit(1);
 			}
 			if ($response->content) {
-				if (eval { JSON::XS::decode_json($response->content); 1; } ) {
+				if (eval { JSON::XS::decode_json($response->content); 1; }) {
 					my $content = JSON::XS::decode_json($response->content);
 					print "\t", $response->status_line, "\n";
 				} else {

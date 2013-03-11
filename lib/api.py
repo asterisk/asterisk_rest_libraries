@@ -106,8 +106,8 @@ class APIClass():
             raise AttributeError("No file name.")
 
         lang_tools = __import__(self.lang)
-        self.file_name = lang_tools.make_filename(self.file_name)
         self.class_name = lang_tools.make_class_name(self.file_name)
+        self.file_name = lang_tools.make_filename(self.file_name)
 
         for api in param_obj['apis']:
             if 'operations' not in api:

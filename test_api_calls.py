@@ -35,33 +35,33 @@ def main():
     """
     os.chdir(PATH)
     for jsonfile in glob.glob("*.json"):
-        res = get_JSON_from_file(jsonfile)
+        res = get_json_from_file(jsonfile)
         if res is None:
             continue
 
         for api in res['apis']:
             try:
-                for op in api['operations']:
+                for opr in api['operations']:
                     try:
                         uri = "http://%s:%s/stasis%s" \
-                            % (HOST, PORT, api['path'])
-                    except KeyError, e:
-                        print "KeyError 1 in %s: %s" % (jsonfile, e)
+                            % (HOST, PORT, api['object_path'])
+                    except KeyError, err:
+                        print "KeyError 1 in %s: %s" % (jsonfile, err)
                         continue
 
                     try:
-                        param_obj = generate_params(op['parameters'])
+                        param_obj = generate_params(opr['parameters'])
                     except:
                         param_obj = {}
 
                     try:
-                        if op['httpMethod'] == 'GET':
+                        if opr['httpMethod'] == 'GET':
                             resp = requests.get(uri, params=param_obj)
-                        elif op['httpMethod'] == 'POST':
+                        elif opr['httpMethod'] == 'POST':
                             resp = requests.post(uri, params=param_obj)
-                        elif op['httpMethod'] == 'DELETE':
+                        elif opr['httpMethod'] == 'DELETE':
                             resp = requests.delete(uri, params=param_obj)
-                        elif op['httpMethod'] == 'PUT':
+                        elif opr['httpMethod'] == 'PUT':
                             resp = requests.put(uri, params=param_obj)
                     except requests.exceptions.ConnectionError:
                         print "Connection refused"
@@ -71,24 +71,24 @@ def main():
                         continue
 
                     print "%s %s %s" \
-                        % (op['responseClass'], op['httpMethod'], uri)
+                        % (opr['responseClass'], opr['httpMethod'], uri)
 
                     if resp.text:
                         print "\t%s: %s" % (resp.status_code, resp.text)
-            except KeyError, e:
-                print "KeyError 2 in %s: %s" % (jsonfile, e)
+            except KeyError, err:
+                print "KeyError 2 in %s: %s" % (jsonfile, err)
                 continue
 
 
-def get_JSON_from_file(jsonfile):
+def get_json_from_file(jsonfile):
     """Open file, read JSON, parse JSON, return dictionary"""
     f = open(PATH + "/" + jsonfile, 'r')
     json_string = f.read()
     f.close()
     try:
         res = json.loads(json_string)
-    except e:
-        #print e
+    except err:
+        #print err
         pass
 
     return res
@@ -97,22 +97,22 @@ def get_JSON_from_file(jsonfile):
 def generate_params(ops):
     """Generate example parameters as required for use in REST API call."""
     res = {}
-    for op in ops:
-        if op['dataType'] == 'string':
-            if op['allowMultiple']:
-                res[op['name']] = ['example', 'string']
+    for opr in ops:
+        if opr['dataType'] == 'string':
+            if opr['allowMultiple']:
+                res[opr['name']] = ['example', 'string']
             else:
-                res[op['name']] = 'example'
-        elif op['dataType'] == 'number':
-            if op['allowMultiple']:
-                res[op['name']] = [20, 8]
+                res[opr['name']] = 'example'
+        elif opr['dataType'] == 'number':
+            if opr['allowMultiple']:
+                res[opr['name']] = [20, 8]
             else:
-                res[op['name']] = 20
-        elif op['dataType'] == 'boolean':
-            if op['allowMultiple']:
-                res[op['name']] = [True, False]
+                res[opr['name']] = 20
+        elif opr['dataType'] == 'boolean':
+            if opr['allowMultiple']:
+                res[opr['name']] = [True, False]
             else:
-                res[op['name']] = True
+                res[opr['name']] = True
 
     return res
 

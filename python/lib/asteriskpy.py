@@ -15,6 +15,8 @@
 """
 import requests
 import json
+import sys
+sys.path.append('python/lib')
 from asterisk_rest_api import AsteriskRestAPI
 from asterisk import Asterisk
 from endpoint import Endpoint
