@@ -62,8 +62,7 @@ sub get_asterisk_info {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/asterisk/info',
 		'http_method' => 'GET',
-		'api_method' => 'get_asterisk_info',
-		'parameters' => $params
+		'api_method' => 'get_asterisk_info'
 	});
 	$is_success = 1;
 	return $is_success;

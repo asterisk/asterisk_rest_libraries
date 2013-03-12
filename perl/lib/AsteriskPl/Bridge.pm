@@ -61,8 +61,7 @@ sub get_bridges {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges',
 		'http_method' => 'GET',
-		'api_method' => 'get_bridges',
-		'parameters' => $params
+		'api_method' => 'get_bridges'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -92,7 +91,6 @@ sub get_bridge {
 		'path' => '/api/bridges/%s',
 		'http_method' => 'GET',
 		'api_method' => 'get_bridge',
-		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;

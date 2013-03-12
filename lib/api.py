@@ -30,7 +30,7 @@ class APIClassMethod():
         self.file_name = param_obj['file_name']
         self.lang = param_obj['lang']
         self.lang_tools = param_obj['lang_tools']
-        self.method_params = ['self']
+        self.method_params = []
         self.required_id = False
         self.param_obj = None
         self.api_summary = ''

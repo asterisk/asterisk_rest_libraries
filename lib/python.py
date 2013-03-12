@@ -76,6 +76,7 @@ def make_param_string(method):
     if method.param_obj is None:
         return 'self'
 
+    method.method_params.insert(0, 'self')
     for p in method.param_obj:
         if p['name'] == "%sId" % (method.file_name):
             continue
@@ -123,7 +124,7 @@ def make_api_call_params(method):
               "http_method='%s'" % (method.http_method)]
     if method.method_name:
         params.append("api_method='%s'" % (method.method_name))
-    if method.method_params:
+    if method.method_params or method.http_method in ['POST', 'DELETE']:
         params.append("parameters=params")
     if method.required_id:
         params.append("object_id=self.object_id")

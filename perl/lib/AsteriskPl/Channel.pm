@@ -61,8 +61,7 @@ sub get_channels {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels',
 		'http_method' => 'GET',
-		'api_method' => 'get_channels',
-		'parameters' => $params
+		'api_method' => 'get_channels'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -92,7 +91,6 @@ sub get_channel {
 		'path' => '/api/channels/%s',
 		'http_method' => 'GET',
 		'api_method' => 'get_channel',
-		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;

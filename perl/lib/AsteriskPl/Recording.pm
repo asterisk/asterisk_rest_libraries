@@ -61,8 +61,7 @@ sub get_recordings {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings',
 		'http_method' => 'GET',
-		'api_method' => 'get_recordings',
-		'parameters' => $params
+		'api_method' => 'get_recordings'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -77,7 +76,6 @@ sub get_recording {
 		'path' => '/api/recordings/%s',
 		'http_method' => 'GET',
 		'api_method' => 'get_recording',
-		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;
