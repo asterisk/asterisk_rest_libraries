@@ -54,7 +54,7 @@ sub remove_event_handler {
 }
 
 sub get_channels {
-    # Active channels; List active channels
+	# Active channels; List active channels
 	my $self = shift;
 
 	$params = {};
@@ -69,7 +69,7 @@ sub get_channels {
 }
 
 sub originate {
-    # Active channels; Create a new channel (originate)
+	# Active channels; Create a new channel (originate)
 	my $self = shift;
 
 	$params = {};
@@ -84,7 +84,7 @@ sub originate {
 }
 
 sub get_channel {
-    # Active channel; Channel details
+	# Active channel; Channel details
 	my $self = shift;
 
 	$params = {};
@@ -100,7 +100,7 @@ sub get_channel {
 }
 
 sub delete_channel {
-    # Active channel; Delete (i.e. hangup) a channel
+	# Active channel; Delete (i.e. hangup) a channel
 	my $self = shift;
 
 	$params = {};
@@ -116,7 +116,7 @@ sub delete_channel {
 }
 
 sub dial {
-    # Create a new channel (originate) and bridge to this channel
+	# Create a new channel (originate) and bridge to this channel
 	my $self = shift;
 
 	$params = {};
@@ -132,7 +132,7 @@ sub dial {
 }
 
 sub continue_in_dialplan {
-    # Exit application; continue execution in the dialplan
+	# Exit application; continue execution in the dialplan
 	my $self = shift;
 
 	$params = {};
@@ -148,7 +148,7 @@ sub continue_in_dialplan {
 }
 
 sub reject_channel {
-    # Reject a channel
+	# Reject a channel
 	my $self = shift;
 
 	$params = {};
@@ -164,7 +164,7 @@ sub reject_channel {
 }
 
 sub answer_channel {
-    # Answer a channel
+	# Answer a channel
 	my $self = shift;
 
 	$params = {};
@@ -180,7 +180,7 @@ sub answer_channel {
 }
 
 sub mute_channel {
-    # Mute a channel
+	# Mute a channel
 	my $self = shift;
 
 	$params = {};
@@ -196,7 +196,7 @@ sub mute_channel {
 }
 
 sub unmute_channel {
-    # Unmute a channel
+	# Unmute a channel
 	my $self = shift;
 
 	$params = {};
@@ -212,7 +212,7 @@ sub unmute_channel {
 }
 
 sub record_channel {
-    # Record audio to/from a channel; Start a recording
+	# Record audio to/from a channel; Start a recording
 	my $self = shift;
 
 	$params = {};

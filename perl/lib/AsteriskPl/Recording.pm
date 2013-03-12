@@ -54,7 +54,7 @@ sub remove_event_handler {
 }
 
 sub get_recordings {
-    # Recordings; List recordings
+	# Recordings; List recordings
 	my $self = shift;
 
 	$params = {};
@@ -69,7 +69,7 @@ sub get_recordings {
 }
 
 sub get_recording {
-    # Individual recording; Get recording details
+	# Individual recording; Get recording details
 	my $self = shift;
 
 	$params = {};
@@ -85,7 +85,7 @@ sub get_recording {
 }
 
 sub delete_recording {
-    # Individual recording; Delete recording
+	# Individual recording; Delete recording
 	my $self = shift;
 
 	$params = {};
@@ -101,7 +101,7 @@ sub delete_recording {
 }
 
 sub stop_recording {
-    # Stop recording
+	# Stop recording
 	my $self = shift;
 
 	$params = {};
@@ -117,7 +117,7 @@ sub stop_recording {
 }
 
 sub pause_recording {
-    # Pause recording
+	# Pause recording
 	my $self = shift;
 
 	$params = {};
@@ -133,7 +133,7 @@ sub pause_recording {
 }
 
 sub unpause_recording {
-    # Unpause recording
+	# Unpause recording
 	my $self = shift;
 
 	$params = {};
@@ -149,7 +149,7 @@ sub unpause_recording {
 }
 
 sub mute_recording {
-    # Mute recording
+	# Mute recording
 	my $self = shift;
 
 	$params = {};
@@ -165,7 +165,7 @@ sub mute_recording {
 }
 
 sub unmute_recording {
-    # Unmute recording
+	# Unmute recording
 	my $self = shift;
 
 	$params = {};

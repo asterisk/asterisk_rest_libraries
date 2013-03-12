@@ -54,7 +54,8 @@ sub remove_event_handler {
 }
 
 sub get_asterisk_info {
-    # Asterisk system information (similar to core show settings); Gets Asterisk system information
+	# Asterisk system information (similar to core show settings); Gets Asterisk
+	# system information
 	my $self = shift;
 
 	$params = {};

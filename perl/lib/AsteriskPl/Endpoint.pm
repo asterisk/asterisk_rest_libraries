@@ -54,7 +54,7 @@ sub remove_event_handler {
 }
 
 sub get_endpoints {
-    # Asterisk endpoints; List available endoints
+	# Asterisk endpoints; List available endoints
 	my $self = shift;
 
 	$params = {};
@@ -69,7 +69,7 @@ sub get_endpoints {
 }
 
 sub get_endpoint {
-    # Single endpoint; Details for an endpoint
+	# Single endpoint; Details for an endpoint
 	my $self = shift;
 
 	$params = {};

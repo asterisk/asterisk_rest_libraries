@@ -15,7 +15,14 @@ detailed in the the LICENSE file at the top of the source tree.
 
 """
 import re
-from utils import get_file_content
+from utils import get_file_content, wrap_line
+
+
+LANGUAGE = 'perl'
+FILE_EXTENSION = 'pm'
+CODE_WRAP_MARKERS = [
+    ('# ', '# ')
+]
 
 
 def make_filename(name):
@@ -79,7 +86,7 @@ def make_method_comment(class_desc, method_desc):
         method_comments.append(class_desc)
     if method_desc and method_desc != class_desc:
         method_comments.append(method_desc)
-    return '    # %s' % ('; '.join(method_comments))
+    return '\t# %s' % ('; '.join(method_comments))
 
 
 def make_api_call_params(method):
@@ -95,3 +102,39 @@ def make_api_call_params(method):
         params.append("'object_id' => $self->{'object_id'}")
 
     return '{\n\t\t' + ',\n\t\t'.join(params) + '\n\t}'
+
+
+def wrap(codestring, width):
+    """Wrap code created by AsteriskPy to a certain width.
+
+    Define lines to wrap and string to glean indent index from
+    in the CODE_WRAP_MARKERS list at the top of this file.
+
+    For many languages, this function may not need to be changed much
+    at all.
+
+    In perl, we want to indent at exactly the index of the code marker we use.
+    We must append '# ' to the indention, since perl doesn't have multi-line
+    comments. Use tabs.
+
+    """
+    code_lines = codestring.split('\n')
+    wrapped_code_lines = []
+    for line in code_lines:
+        if len(line) < width:
+            wrapped_code_lines.append(line)
+            continue
+
+        matched = None
+        for each in CODE_WRAP_MARKERS:
+            match = re.search('^\s+(%s)' % (each[0]), line)
+            if match is not None:
+                matched = True
+                new_line = wrap_line(line, width, each[1], indent_char='\t',
+                                     indent_suffix='# ')
+                wrapped_code_lines.append(new_line)
+
+        if matched is None:
+            wrapped_code_lines.append(line)
+
+    return '\n'.join(wrapped_code_lines)

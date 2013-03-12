@@ -54,7 +54,7 @@ sub remove_event_handler {
 }
 
 sub get_bridges {
-    # Active bridges; List active bridges
+	# Active bridges; List active bridges
 	my $self = shift;
 
 	$params = {};
@@ -69,7 +69,7 @@ sub get_bridges {
 }
 
 sub new_bridge {
-    # Active bridges; Create a new bridge
+	# Active bridges; Create a new bridge
 	my $self = shift;
 
 	$params = {};
@@ -84,7 +84,7 @@ sub new_bridge {
 }
 
 sub get_bridge {
-    # Individual bridge; Get bridge details
+	# Individual bridge; Get bridge details
 	my $self = shift;
 
 	$params = {};
@@ -100,7 +100,7 @@ sub get_bridge {
 }
 
 sub delete_bridge {
-    # Individual bridge; Delete bridge
+	# Individual bridge; Delete bridge
 	my $self = shift;
 
 	$params = {};
@@ -116,7 +116,7 @@ sub delete_bridge {
 }
 
 sub add_channel_to_bridge {
-    # Add a channel to a bridge
+	# Add a channel to a bridge
 	my $self = shift;
 
 	$params = {};
@@ -132,7 +132,7 @@ sub add_channel_to_bridge {
 }
 
 sub remove_channel_from_bridge {
-    # Remove a channel from a bridge
+	# Remove a channel from a bridge
 	my $self = shift;
 
 	$params = {};
@@ -148,7 +148,7 @@ sub remove_channel_from_bridge {
 }
 
 sub record_bridge {
-    # Record audio to/from a bridge; Start a recording
+	# Record audio to/from a bridge; Start a recording
 	my $self = shift;
 
 	$params = {};

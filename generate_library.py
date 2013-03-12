@@ -22,7 +22,6 @@ import re
 import requests
 from api import APIClass
 from utils import parse_args, write_file, get_file_content
-import codewrap
 
 
 class Generator():
@@ -55,8 +54,7 @@ class Generator():
                   "--url=http://localhost:8088/stasis] "
             return 1
 
-        config = json.loads(get_file_content("%s/config.json" %
-                                             (args['lang'])))
+        self.lang_tools = __import__(args['lang'])
 
         def remove_moved(method):
             """Remove get* methods from this class and add to Asterisk"""
@@ -116,9 +114,9 @@ class Generator():
 
             class_def = re.sub('\{CLASS_METHODS\}', methods_blob, class_def)
             file_contents = '\n\n'.join([template_copyright, class_def])
-            file_contents = codewrap.wrap(file_contents, 79)
+            file_contents = self.lang_tools.wrap(file_contents, 79)
             write_file('%s/lib/%s.%s' % (args['lang'], class_.file_name,
-                       config['file_extension']), file_contents)
+                       self.lang_tools.FILE_EXTENSION), file_contents)
 
         license_content = get_file_content('LICENSE')
         write_file('%s/lib/LICENSE' % args['lang'], license_content)
