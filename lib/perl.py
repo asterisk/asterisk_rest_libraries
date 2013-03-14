@@ -94,8 +94,6 @@ def make_api_call_params(method):
     util module which handles HTTP requests to Asterisk."""
     params = ["'path' => '%s'" % (method.path),
               "'http_method' => '%s'" % (method.http_method)]
-    if method.method_name:
-        params.append("'api_method' => '%s'" % (method.method_name))
     if method.method_params or method.http_method in ['POST', 'DELETE']:
         params.append("'parameters' => $params")
     if method.required_id:

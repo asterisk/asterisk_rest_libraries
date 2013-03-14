@@ -44,7 +44,7 @@ def main():
                 for opr in api['operations']:
                     try:
                         uri = "http://%s:%s/stasis%s" \
-                            % (HOST, PORT, api['object_path'])
+                            % (HOST, PORT, api['path'])
                     except KeyError, err:
                         print "KeyError 1 in %s: %s" % (jsonfile, err)
                         continue

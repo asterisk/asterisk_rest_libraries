@@ -49,8 +49,7 @@ class Channel:
         if context_string:
             params['context'] = context_string
 
-        self._api.call('/api/channels', http_method='POST',
-                       api_method='originate', parameters=params)
+        self._api.call('/api/channels', http_method='POST', parameters=params)
         is_success = True
         return is_success
 
@@ -59,8 +58,7 @@ class Channel:
         params = {}
 
         self._api.call('/api/channels/%s', http_method='DELETE',
-                       api_method='delete', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -76,8 +74,7 @@ class Channel:
             params['context'] = context_string
 
         self._api.call('/api/channels/%s/dial', http_method='POST',
-                       api_method='dial', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -86,8 +83,7 @@ class Channel:
         params = {}
 
         self._api.call('/api/channels/%s/continue', http_method='POST',
-                       api_method='continue_in_dialplan', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -96,8 +92,7 @@ class Channel:
         params = {}
 
         self._api.call('/api/channels/%s/reject', http_method='POST',
-                       api_method='reject', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -106,8 +101,7 @@ class Channel:
         params = {}
 
         self._api.call('/api/channels/%s/answer', http_method='POST',
-                       api_method='answer', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -118,8 +112,7 @@ class Channel:
             params['direction'] = direction_string
 
         self._api.call('/api/channels/%s/mute', http_method='POST',
-                       api_method='mute', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -130,8 +123,7 @@ class Channel:
             params['direction'] = direction_string
 
         self._api.call('/api/channels/%s/unmute', http_method='POST',
-                       api_method='unmute', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -154,7 +146,6 @@ class Channel:
             params['terminateOn'] = terminate_on_string
 
         self._api.call('/api/channels/%s/record', http_method='POST',
-                       api_method='record', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success

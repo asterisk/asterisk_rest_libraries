@@ -60,8 +60,7 @@ sub get_bridges {
 	$params = {};
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges',
-		'http_method' => 'GET',
-		'api_method' => 'get_bridges'
+		'http_method' => 'GET'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -75,7 +74,6 @@ sub new_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges',
 		'http_method' => 'POST',
-		'api_method' => 'new_bridge',
 		'parameters' => $params
 	});
 	$is_success = 1;
@@ -90,7 +88,6 @@ sub get_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges/%s',
 		'http_method' => 'GET',
-		'api_method' => 'get_bridge',
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;
@@ -105,7 +102,6 @@ sub delete_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges/%s',
 		'http_method' => 'DELETE',
-		'api_method' => 'delete_bridge',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -121,7 +117,6 @@ sub add_channel_to_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges/%s/addChannel',
 		'http_method' => 'POST',
-		'api_method' => 'add_channel_to_bridge',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -137,7 +132,6 @@ sub remove_channel_from_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges/%s/removeChannel',
 		'http_method' => 'POST',
-		'api_method' => 'remove_channel_from_bridge',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -153,7 +147,6 @@ sub record_bridge {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/bridges/%s/record',
 		'http_method' => 'POST',
-		'api_method' => 'record_bridge',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});

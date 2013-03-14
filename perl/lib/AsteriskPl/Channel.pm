@@ -60,8 +60,7 @@ sub get_channels {
 	$params = {};
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels',
-		'http_method' => 'GET',
-		'api_method' => 'get_channels'
+		'http_method' => 'GET'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -75,7 +74,6 @@ sub originate {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels',
 		'http_method' => 'POST',
-		'api_method' => 'originate',
 		'parameters' => $params
 	});
 	$is_success = 1;
@@ -90,7 +88,6 @@ sub get_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s',
 		'http_method' => 'GET',
-		'api_method' => 'get_channel',
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;
@@ -105,7 +102,6 @@ sub delete_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s',
 		'http_method' => 'DELETE',
-		'api_method' => 'delete_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -121,7 +117,6 @@ sub dial {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/dial',
 		'http_method' => 'POST',
-		'api_method' => 'dial',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -137,7 +132,6 @@ sub continue_in_dialplan {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/continue',
 		'http_method' => 'POST',
-		'api_method' => 'continue_in_dialplan',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -153,7 +147,6 @@ sub reject_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/reject',
 		'http_method' => 'POST',
-		'api_method' => 'reject_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -169,7 +162,6 @@ sub answer_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/answer',
 		'http_method' => 'POST',
-		'api_method' => 'answer_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -185,7 +177,6 @@ sub mute_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/mute',
 		'http_method' => 'POST',
-		'api_method' => 'mute_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -201,7 +192,6 @@ sub unmute_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/unmute',
 		'http_method' => 'POST',
-		'api_method' => 'unmute_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -217,7 +207,6 @@ sub record_channel {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/channels/%s/record',
 		'http_method' => 'POST',
-		'api_method' => 'record_channel',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});

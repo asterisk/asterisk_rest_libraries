@@ -40,7 +40,7 @@ class AsteriskPy:
         else:
             self._protocol = 'https'
 
-        self._stasis_base = "%s://%s:%s/stasis/api" \
+        self._stasis_base = "%s://%s:%s/stasis" \
             % (self._protocol, self._host, self._port)
         self._api = AsteriskRestAPI(uri=self._stasis_base)
         self._asterisk = Asterisk(self._api)

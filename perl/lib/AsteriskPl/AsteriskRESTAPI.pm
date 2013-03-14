@@ -26,7 +26,7 @@ sub new {
 	my ($class, %self) = @_;
 	die ("Can't call Asterisk REST API without stasis_base.")
 		if !$self{'stasis_base'};
-	if ($self{'stasis_base'} !~ /https*:\/\/.+\/stasis\/api\/*/i) {
+	if ($self{'stasis_base'} !~ /https*:\/\/.+\/stasis\/*/i) {
 		die sprintf("stasis_base value is invalid: %s\n", $self{'stasis_base'});
 	}
 	$self{'ua'} = LWP::UserAgent->new();
@@ -66,14 +66,11 @@ sub call {
 
 
 	if ($params->{'object_id'}) {
-		$params->{'object_path'} =~ s/\%s/$params->{'object_id'}/ig;
+		$params->{'path'} =~ s/\%s/$params->{'object_id'}/ig;
 	}
-	my $uri = sprintf("%s/%s", $self->{'stasis_base'},$params->{'object_path'});
-	if ($params->{'api_method'}) {
-		$uri .= $params->{'api_method'} . '/';
-	}
+	my $uri = $self->{'stasis_base'} . $params->{'path'};
 	my $response;
-	#print "uri is $uri\n";
+	print "uri is $uri\n";
 	if ($params->{'http_method'} eq 'GET') {
 		my $paramString = make_param_string($params->{'parameters'});
 		$uri = sprintf("$uri%s", make_param_string($params->{'parameters'}));

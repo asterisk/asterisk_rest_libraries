@@ -42,8 +42,7 @@ class Bridge:
         """Active bridges; Create a new bridge"""
         params = {}
 
-        self._api.call('/api/bridges', http_method='POST', api_method='new',
-                       parameters=params)
+        self._api.call('/api/bridges', http_method='POST', parameters=params)
         is_success = True
         return is_success
 
@@ -52,8 +51,7 @@ class Bridge:
         params = {}
 
         self._api.call('/api/bridges/%s', http_method='DELETE',
-                       api_method='delete', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -64,8 +62,7 @@ class Bridge:
             params['channel'] = channel_string_list
 
         self._api.call('/api/bridges/%s/addChannel', http_method='POST',
-                       api_method='add_channel_to', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -76,8 +73,7 @@ class Bridge:
             params['channel'] = channel_string_list
 
         self._api.call('/api/bridges/%s/removeChannel', http_method='POST',
-                       api_method='remove_channel_from', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -100,7 +96,6 @@ class Bridge:
             params['terminateOn'] = terminate_on_string
 
         self._api.call('/api/bridges/%s/record', http_method='POST',
-                       api_method='record', parameters=params,
-                       object_id=self.object_id)
+                       parameters=params, object_id=self.object_id)
         is_success = True
         return is_success

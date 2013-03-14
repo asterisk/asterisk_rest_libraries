@@ -35,7 +35,7 @@ sub new {
 
 	my ($class, %self) = @_;
 	$self{'protocol'} = $self{'https'} ? 'https' : 'http';
-	$self{'stasis_base'} = sprintf("%s://%s:%s/stasis/api",
+	$self{'stasis_base'} = sprintf("%s://%s:%s/stasis",
 		$self{'protocol'}, $self{'host'}, $self{'port'});
 	$self{'api'} = AsteriskPl::AsteriskRESTAPI->new(
 		'stasis_base' => $self{'stasis_base'}
@@ -55,7 +55,7 @@ sub get_endpoints {
 	my $self = shift;
 	# Return a list of all Endpoints from Asterisk."""
 	my $response = $self->{'api'}->call({
-		'object_path' => 'endpoints',
+		'path' => 'endpoints',
 		'http_method' => 'GET'
 	});
 	# Temporary until method is implemented
@@ -75,7 +75,7 @@ sub get_channels {
 	my $self = shift;
 	# Return a list of all Channels from Asterisk."""
 	my $response = $self->{'api'}->call({
-		'object_path' => 'channels',
+		'path' => 'channels',
 		'http_method' => 'GET'
 	});
 	# Temporary until method is implemented
@@ -95,7 +95,7 @@ sub get_bridges {
 	my $self = shift;
 	# Return a list of all Bridges from Asterisk."""
 	my $response = $self->{'api'}->call({
-		'object_path' => 'bridges',
+		'path' => 'bridges',
 		'http_method' => 'GET'
 	});
 	# Temporary until method is implemented
@@ -115,7 +115,7 @@ sub get_recordings {
 	my $self = shift;
 	# Return a list of all Recordings from Asterisk."""
 	my $response = $self->{'api'}->call({
-		'object_path' => 'recordings',
+		'path' => 'recordings',
 		'http_method' => 'GET'
 	});
 	# Temporary until method is implemented
@@ -137,7 +137,7 @@ sub get_endpoint {
 	my $self = shift;
 	my $object_id = shift;
 	my $response = $self->{'api'}->call({
-		'object_path' => 'recordings',
+		'path' => 'recordings',
 		'http_method' => 'GET',
 		'object_id' => $object_id,
 	});
@@ -154,7 +154,7 @@ sub get_channel {
 	my $self = shift;
 	my $object_id = shift;
 	my $response = $self->{'api'}->call({
-		'object_path' => 'channels',
+		'path' => 'channels',
 		'http_method' => 'GET',
 		'object_id' => $object_id,
 	});
@@ -171,7 +171,7 @@ sub get_bridge {
 	my $self = shift;
 	my $object_id = shift;
 	my $response = $self->{'api'}->call({
-		'object_path' => 'bridges',
+		'path' => 'bridges',
 		'http_method' => 'GET',
 		'object_id' => $object_id,
 	});
@@ -188,7 +188,7 @@ sub get_recording {
 	my $self = shift;
 	my $object_id = shift;
 	my $response = $self->{'api'}->call({
-		'object_path' => 'recording',
+		'path' => 'recording',
 		'http_method' => 'GET',
 		'object_id' => $object_id,
 	});
@@ -205,7 +205,7 @@ sub create_channel {
 	my $self = shift;
 	my $params = shift;
 	my $result = $self->{'api'}->call({
-		'object_path' => 'channels',
+		'path' => 'channels',
 		'http_method' => 'POST',
 		'parameters' => $params,
 	});
@@ -219,7 +219,7 @@ sub create_bridge() {
 	my $self = shift;
 	my $params = shift;
 	my $result = $self->{'api'}->call({
-		'object_path' => 'bridges',
+		'path' => 'bridges',
 		'http_method' => 'POST',
 		'parameters' => $params,
 	});

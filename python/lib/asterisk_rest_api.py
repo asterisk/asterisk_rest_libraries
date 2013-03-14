@@ -36,9 +36,8 @@ class AsteriskRestAPI:
                 "Cannot access URI %s" % (self._base_uri)
             )
 
-    def call(self, object_path,
-             http_method='GET', api_method=None,
-             parameters=None, object_id=None):
+    def call(self, path, http_method='GET', parameters=None,
+             object_id=None):
         """Call an Asterisk API method, return result dictionary
 
         Throws AsteriskPyAccessException if the server is unreachable.
@@ -61,15 +60,13 @@ class AsteriskRestAPI:
         """
         result = {'success': False, 'response': None, 'error': None}
         if object_id:
-            object_path = object_path % (object_id)
+            path = path % (object_id)
 
-        request_uri = "%s/%s" % (self._base_uri, object_path)
+        request_uri = self._base_uri + path
         if object_id is not None:
             request_uri = request_uri + "/%s" % (object_id)
 
-        if api_method is not None:
-            request_uri = request_uri + "/%s" % (api_method)
-
+        print request_uri
         try:
             if http_method == 'GET':
                 resp = requests.get(request_uri, params=parameters)

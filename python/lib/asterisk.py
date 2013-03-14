@@ -46,6 +46,6 @@ class Asterisk:
             params['only'] = only_string_list
 
         self._api.call('/api/asterisk/info', http_method='GET',
-                       api_method='get_info', parameters=params)
+                       parameters=params)
         is_success = True
         return is_success

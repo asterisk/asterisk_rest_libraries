@@ -60,8 +60,7 @@ sub get_recordings {
 	$params = {};
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings',
-		'http_method' => 'GET',
-		'api_method' => 'get_recordings'
+		'http_method' => 'GET'
 	});
 	$is_success = 1;
 	return $is_success;
@@ -75,7 +74,6 @@ sub get_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s',
 		'http_method' => 'GET',
-		'api_method' => 'get_recording',
 		'object_id' => $self->{'object_id'}
 	});
 	$is_success = 1;
@@ -90,7 +88,6 @@ sub delete_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s',
 		'http_method' => 'DELETE',
-		'api_method' => 'delete_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -106,7 +103,6 @@ sub stop_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s/stop',
 		'http_method' => 'POST',
-		'api_method' => 'stop_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -122,7 +118,6 @@ sub pause_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s/pause',
 		'http_method' => 'POST',
-		'api_method' => 'pause_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -138,7 +133,6 @@ sub unpause_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s/unpause',
 		'http_method' => 'POST',
-		'api_method' => 'unpause_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -154,7 +148,6 @@ sub mute_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s/mute',
 		'http_method' => 'POST',
-		'api_method' => 'mute_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
@@ -170,7 +163,6 @@ sub unmute_recording {
 	$is_success = $self->{'api'}->call({
 		'path' => '/api/recordings/%s/unmute',
 		'http_method' => 'POST',
-		'api_method' => 'unmute_recording',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
 	});
