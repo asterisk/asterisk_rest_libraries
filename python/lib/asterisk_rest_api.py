@@ -86,6 +86,7 @@ class AsteriskRestAPI:
             result['error'] = "No response."
             return result
 
+        print resp.status_code
         if resp.status_code in [418, 200]:
             result['success'] = True
         else:

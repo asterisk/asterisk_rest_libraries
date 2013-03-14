@@ -1,0 +1,33 @@
+AsteriskJs.{CLASS_NAME} = function(parameters) {
+	/* Definition of {CLASS_NAME} object */
+	for (var key in parameters) {
+		this[key] = parameters[key];
+	}
+
+	this.object_id = 1;
+
+	if (typeof this.api != 'object') {
+		throw new Error("Can't make new AsteriskJs.{CLASS_NAME} "
+			+ " instance without AsteriskJs.AsteriskRESTAPI instance.");
+	}
+
+	this.getId = function() {
+		/* Return the {CLASS_NAME} object's id. */
+		return this.object_id;
+	};
+
+	this.addEventHandler = function(eventName, handler) {
+		/* Add an event handler for Stasis events on this object.
+		 * For general events, use AsteriskJs.Asterisk.addEventHandler
+		 * instead. */
+		return true;
+	};
+
+	this.removeEventHandler = function(eventName, handler) {
+		/* Remove an event handler for Stasis events on this object.
+		 * For general events, use AsteriskJs.Asterisk.removeEventHandler
+		 * instead. */
+		return true;
+	};
+{CLASS_METHODS}
+};

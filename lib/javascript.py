@@ -18,8 +18,8 @@ import re
 from utils import get_file_content, wrap_line
 
 
-LANGUAGE = 'python'
-FILE_EXTENSION = 'py'
+LANGUAGE = 'javascript'
+FILE_EXTENSION = 'js'
 CODE_WRAP_MARKERS = [
     # 1st element used in regex to identify wrappable lines
     #     Remember to comment characters that have special meanings in regex.
@@ -28,9 +28,8 @@ CODE_WRAP_MARKERS = [
     #     wrapped line
     # 4th element (indent_offset) is number of chars to add to indentation
     #     index before content
-    ('def', '(', '', 1),
-    ('self._api.call', '(', '', 1),
-    ('"""', '"""', '', 1),
+    ('\/\*', '/*', ' * ', 0),
+    ('this.\w+ = function', '', '', 2)
 ]
 
 
@@ -54,8 +53,9 @@ def make_class_name(name):
     or plural should not be assumed
 
     """
-    name = name[0].upper() + name[1:]
     name = re.sub('s$', '', name)
+    name = name[0].upper() + name[1:]
+    name = re.sub('/', '::', name)
     return name
 
 
@@ -67,9 +67,6 @@ def make_method_name(name, class_name):
     'muteChannel'.  Whether singular or plural should not be assumed.
 
     """
-    name = re.sub('([A-Z]{1,1})', r'_\1', name)
-    name = name.lower()
-    name = name.replace('_%s' % (class_name.lower()), '')
     return name
 
 
@@ -81,33 +78,23 @@ def make_param_string(method):
     t_attr = get_file_content('%s/templates/method_params_attr.proto'
                               % method.lang)
     if method.param_obj is None:
-        return 'self'
+        return ''
 
-    method.method_params.insert(0, 'self')
     for p in method.param_obj:
         if p['name'] == "%sId" % (method.file_name):
             continue
 
-        #param_name = re.sub('([A-Z]{1,1})', r'_\1', param_name)
-        param_name = "%s_%s" % (p['name'], p['dataType'])
+        param_name = "%s%s" % (p['name'],
+                     p['dataType'][0].upper() + p['dataType'][1:])
 
         if 'allowMultiple' in p and p['allowMultiple']:
-            param_name = param_name + "_list"
+            param_name = param_name + "Array"
 
-        param_name = re.sub('([A-Z]{1,1})', r'_\1', param_name)
-        param_name = param_name.lower()
         attr = re.sub('\{ATTR_NAME\}', param_name, t_attr)
         attr = re.sub('\{ATTR_ORIG_NAME\}', p['name'], attr)
         method.param_lines.append(attr)
 
-        if 'defaultValue' in p:
-            p['defaultValue'] = "'%s'" % (p['defaultValue'])
-        else:
-            p['defaultValue'] = None
-
-        param = "%s=%s" % (param_name, p['defaultValue'])
-
-        method.method_params.append(param)
+        method.method_params.append(param_name)
 
     return ', '.join(method.method_params)
 
@@ -122,20 +109,20 @@ def make_method_comment(class_desc, method_desc):
         method_comments.append(class_desc)
     if method_desc and method_desc != class_desc:
         method_comments.append(method_desc)
-    return '        """%s"""' % ('; '.join(method_comments))
+    return '\t\t/* %s */' % ('; '.join(method_comments))
 
 
 def make_api_call_params(method):
     """Format the parameters to the call() method in asterisk_rest_api, the
     util module which handles HTTP requests to Asterisk."""
-    params = ["'%s'" % (method.path),
-              "http_method='%s'" % (method.http_method)]
-    if method.method_params or method.http_method in ['POST', 'DELETE']:
-        params.append("parameters=params")
+    params = ["'path': '%s'" % (method.path),
+             "'http_method': '%s'" % (method.http_method)]
+    if method.method_params:
+        params.append("'parameters': params")
     if method.required_id:
-        params.append("object_id=self.object_id")
+        params.append("'object_id': this.object_id")
 
-    return ', '.join(params)
+    return '{\n\t\t\t' + ',\n\t\t\t'.join(params) + '\n\t\t}'
 
 
 def wrap(codestring):
@@ -147,12 +134,13 @@ def wrap(codestring):
     For many languages, this function may not need to be changed much
     at all.
 
-    In python, we want to indent at one greater than the index
-    of the code marker we use.  We don't need to use a suffix since python
-    has multi-line comments, and we will use spaces.
+    In perl, we want to indent at exactly the index of the code marker we use.
+    We must append '# ' to the indention, since perl doesn't have multi-line
+    comments. Use tabs. Wrap to 70 characters since use of tabs may increase
+    visible line length.
 
     """
-    width = 79
+    width = 70
     code_lines = codestring.split('\n')
     wrapped_code_lines = []
     for line in code_lines:
@@ -165,7 +153,7 @@ def wrap(codestring):
             match = re.search('^\s+(%s)' % (each[0]), line)
             if match is not None:
                 matched = True
-                new_line = wrap_line(line, width, each[1],
+                new_line = wrap_line(line, width, each[1], indent_char='\t',
                                      indent_suffix=each[2],
                                      indent_offset=each[3])
                 wrapped_code_lines.append(new_line)

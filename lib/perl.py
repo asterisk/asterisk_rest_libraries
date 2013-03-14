@@ -21,7 +21,14 @@ from utils import get_file_content, wrap_line
 LANGUAGE = 'perl'
 FILE_EXTENSION = 'pm'
 CODE_WRAP_MARKERS = [
-    ('# ', '# ')
+    # 1st element used in regex to identify wrappable lines
+    #     Remember to comment characters that have special meanings in regex.
+    # 2nd element (indent_marker) used in regex to identify index of indention
+    # 3rd element (indent_suffix) placed between whitespace indentation and
+    #     wrapped line
+    # 4th element (indent_offset) is number of chars to add to indentation
+    #     index before content
+    ('# ', '# ', '# ', 0)
 ]
 
 
@@ -102,7 +109,7 @@ def make_api_call_params(method):
     return '{\n\t\t' + ',\n\t\t'.join(params) + '\n\t}'
 
 
-def wrap(codestring, width):
+def wrap(codestring):
     """Wrap code created by AsteriskPy to a certain width.
 
     Define lines to wrap and string to glean indent index from
@@ -113,9 +120,11 @@ def wrap(codestring, width):
 
     In perl, we want to indent at exactly the index of the code marker we use.
     We must append '# ' to the indention, since perl doesn't have multi-line
-    comments. Use tabs.
+    comments. Use tabs. Wrap to 70 characters since use of tabs may increase
+    visible line length.
 
     """
+    width = 70
     code_lines = codestring.split('\n')
     wrapped_code_lines = []
     for line in code_lines:
@@ -129,7 +138,8 @@ def wrap(codestring, width):
             if match is not None:
                 matched = True
                 new_line = wrap_line(line, width, each[1], indent_char='\t',
-                                     indent_suffix='# ')
+                                     indent_suffix=each[2],
+                                     indent_offset=each[3])
                 wrapped_code_lines.append(new_line)
 
         if matched is None:

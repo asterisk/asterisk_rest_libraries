@@ -1,0 +1,7 @@
+	this.{API_METHOD_NAME} = function({PARAMS}) {
+{METHOD_COMMENTS}
+	{BUILD_API_CALL_PARAMS}
+		is_success = this.api.call({API_CALL_PARAMS});
+		is_success = true;
+		return is_success;
+	};

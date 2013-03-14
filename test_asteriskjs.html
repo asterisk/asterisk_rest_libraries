@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<!--
+- Copyright (C) 2013 Digium, Inc.
+- All Rights Reserved.
+- @Package: test_asteriskjs.html
+- @Authors: Erin Spiceland <espiceland@digium.com>
+-
+- See http://www.asterisk.org for more information about
+- the Asterisk project. Please do not directly contact
+- any of the maintainers of this project for assistance;
+- the project provides a web site, mailing lists and IRC
+- channels for your use.
+-
+- This program is free software, distributed under the terms
+- detailed in the the LICENSE file at the top of the source tree.
+-
+-->
+	<head>
+		<title>Test AsteriskJs</title>
+		<script type='text/javascript'
+			src='javascript/lib/asteriskjs.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/asterisk.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/bridge.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/channel.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/endpoint.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/recording.js'>
+		</script>
+		<script type='text/javascript'
+			src='javascript/lib/asterisk_rest_api.js'>
+		</script>
+	</head>
+	<body>
+		<div id='content'></div>
+		<script type='text/javascript'>
+var content = document.getElementById('content');
+var runTests = function(ast) {
+	var args = {
+		'host': '192.168.1.124',
+		'port': '8088',
+		'path': 'test_resources'
+	};
+
+	console.log(ast);
+
+	ast.getAsteriskInfo();
+	ast.getEndpoints();
+	ast.getChannels();
+	ast.getBridges();
+	ast.getRecordings();
+	ast.createChannel({'tech': 'dummy_params'});
+	ast.createBridge({'tech': 'dummy_params'});
+
+	var endpoints = [new AsteriskJs.Endpoint({'api': ast.api})];
+	var channels = [new AsteriskJs.Channel({'api': ast.api})];
+	var bridges = [new AsteriskJs.Bridge({'api': ast.api})];
+	var recordings = [new AsteriskJs.Recording({'api': ast.api})];
+
+	for (var i = 0; i < endpoints.length; i++) {
+		var endpoint = endpoints[i];
+		content.innerHTML += "got endpoint with id " + endpoint.getId()
+			+ "<br />\n";
+	}
+
+	for (var i = 0; i < channels.length; i++) {
+		var channel = channels[i];
+		content.innerHTML += "got channel with id " + channel.getId()
+			+ "<br />\n";
+		channel.deleteChannel();
+		channel.rejectChannel();
+		channel.answerChannel();
+		channel.muteChannel();
+		channel.unmuteChannel();
+		channel.recordChannel('rec name');
+		channel.dial();
+		channel.continueInDialplan();
+		channel.originate();
+	}
+
+	chan = new AsteriskJs.Channel({'api': ast.api});
+	for (var i = 0; i < bridges.length; i++) {
+		var bridge = bridges[i];
+		bridge.getId();
+		bridge.newBridge();
+		bridge.deleteBridge();
+		bridge.addChannelToBridge(chan.getId());
+		bridge.removeChannelFromBridge(chan.getId());
+		bridge.recordBridge('rec name');
+	}
+
+	for (var i = 0; i < recordings.length; i++) {
+		var recording = recordings[i];
+		recording.getId();
+		recording.deleteRecording();
+		recording.stopRecording();
+		recording.pauseRecording();
+		recording.unpauseRecording();
+		recording.muteRecording();
+		recording.unmuteRecording();
+	}
+};
+
+window.onload = function() {
+	var ast = new AsteriskJs().init({
+		'host': '10.24.67.73',
+		'port': '8088',
+		'https': false,
+		'responseHandler' : function(response, data) {
+			content.innerHTML += data.uri + ' returns ' + response.status + ": "
+				+ response.responseText + '	<br />';
+		}
+	});
+	runTests(ast);
+};
+
+		</script>
+	</body>
+</html>

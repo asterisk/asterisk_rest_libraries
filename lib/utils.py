@@ -66,9 +66,11 @@ def wrap_line(text, width, indent_marker, indent_offset=0, indent_char=' ',
 
     """
     paren_index = text.find(indent_marker)
+    if paren_index == 0:
+        paren_index = 1
     indent = indent_char * (paren_index + indent_offset)
 
-    def make_delimiter(line, word, width, indent_suffix):
+    def make_delimiter(line, word, width):
         """Determine whether we will add this word to the current line
         or begin a new line.
 
@@ -81,5 +83,6 @@ def wrap_line(text, width, indent_marker, indent_offset=0, indent_char=' ',
             return ' '
 
     return reduce(lambda line, word, width=width: '%s%s%s' %
-                  (line, make_delimiter(line, word, width, indent_suffix),
+                  (line, make_delimiter(line, word, width),
                   word), text.split(' '))
+

@@ -114,7 +114,7 @@ class Generator():
 
             class_def = re.sub('\{CLASS_METHODS\}', methods_blob, class_def)
             file_contents = '\n\n'.join([template_copyright, class_def])
-            file_contents = self.lang_tools.wrap(file_contents, 79)
+            file_contents = self.lang_tools.wrap(file_contents)
             write_file('%s/lib/%s.%s' % (args['lang'], class_.file_name,
                        self.lang_tools.FILE_EXTENSION), file_contents)
 

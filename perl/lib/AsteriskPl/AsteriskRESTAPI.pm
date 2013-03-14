@@ -22,7 +22,7 @@ use JSON;
 package AsteriskPl::AsteriskRESTAPI;
 
 sub new {
-	# Handle HTTP requests to Atserisk
+	# Handle HTTP requests to Asterisk
 	my ($class, %self) = @_;
 	die ("Can't call Asterisk REST API without stasis_base.")
 		if !$self{'stasis_base'};
@@ -85,7 +85,7 @@ sub call {
 		$response = $self->{'ua'}->put($uri, $params->{'parameters'});
 	}
 
-	#print "response is ", $response->status_line, "\n";
+	print "response is ", $response->status_line, "\n";
 	if ($response->content =~ /connection refused/i) {
 		print "Can't contact server.\n";
 		return $result;
