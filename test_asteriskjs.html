@@ -45,12 +45,6 @@
 		<script type='text/javascript'>
 var content = document.getElementById('content');
 var runTests = function(ast) {
-	var args = {
-		'host': '192.168.1.124',
-		'port': '8088',
-		'path': 'test_resources'
-	};
-
 	console.log(ast);
 
 	ast.getAsteriskInfo();
@@ -112,9 +106,7 @@ var runTests = function(ast) {
 
 window.onload = function() {
 	var ast = new AsteriskJs().init({
-		'host': '10.24.67.73',
-		'port': '8088',
-		'https': false,
+		'api_url': 'http://10.24.67.73:8088/stasis',
 		'responseHandler' : function(response, data) {
 			content.innerHTML += data.uri + ' returns ' + response.status + ": "
 				+ response.responseText + '	<br />';

@@ -24,10 +24,10 @@ package AsteriskPl::AsteriskRESTAPI;
 sub new {
 	# Handle HTTP requests to Asterisk
 	my ($class, %self) = @_;
-	die ("Can't call Asterisk REST API without stasis_base.")
-		if !$self{'stasis_base'};
-	if ($self{'stasis_base'} !~ /https*:\/\/.+\/stasis\/*/i) {
-		die sprintf("stasis_base value is invalid: %s\n", $self{'stasis_base'});
+	die ("Can't call Asterisk REST API without api_url.")
+		if !$self{'api_url'};
+	if ($self{'api_url'} !~ /https*:\/\/.+\/stasis\/*/i) {
+		die sprintf("api_url value is invalid: %s\n", $self{'api_url'});
 	}
 	$self{'ua'} = LWP::UserAgent->new();
 	bless \%self, $class;
@@ -68,7 +68,7 @@ sub call {
 	if ($params->{'object_id'}) {
 		$params->{'path'} =~ s/\%s/$params->{'object_id'}/ig;
 	}
-	my $uri = $self->{'stasis_base'} . $params->{'path'};
+	my $uri = $self->{'api_url'} . $params->{'path'};
 	my $response;
 	print "uri is $uri\n";
 	if ($params->{'http_method'} eq 'GET') {

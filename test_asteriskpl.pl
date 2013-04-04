@@ -24,16 +24,10 @@ use ParseArgs;
 use AsteriskPl;
 
 my $defaults = {
-	'host' => '192.168.1.124',
-	'port' => '8088',
-	'path' => 'test_resources',
+	'api_url' => 'http://192.168.1.124:8088/stasis'
 };
 my $args = ParseArgs::parse(\@ARGV, $defaults);
-my $ast = AsteriskPl->new(
-	'host' => $args->{'host'},
-	'port' => $args->{'port'},
-	'https' => 0,
-);
+my $ast = AsteriskPl->new(%$args);
 my $result = $ast->get_asterisk_info();
 print "Asterisk status is ", $result->{'response'}, "\n";
 

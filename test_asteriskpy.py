@@ -23,8 +23,7 @@ import asteriskpy
 def main(argv):
     """Test automatically generated python module."""
     args = {
-        'host': '192.168.1.124',
-        'port': '8088'
+        'api_url': 'http://192.168.1.124:8088/stasis',
     }
     for a in argv:
         pieces = a.split("=", 1)
@@ -33,7 +32,7 @@ def main(argv):
         except:
             args[pieces[0].strip('-')] = True
 
-    ast = asteriskpy.AsteriskPy(host=args['host'], port=args['port'])
+    ast = asteriskpy.AsteriskPy(api_url=args['api_url'])
     result = ast.get_info()
     print "Asterisk status is %s" % (result)
 

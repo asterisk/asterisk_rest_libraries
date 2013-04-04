@@ -28,11 +28,8 @@ AsteriskJs = function(parameters) {
 			this[key] = parameters[key];
 		}
 
-		this.protocol = !!this.https ? 'https' : 'http';
-		this.stasis_base = this.protocol + '://' + this.host + ':' + this.port
-			+ '/stasis';
 		this.api = new AsteriskJs.AsteriskRESTAPI({
-			'stasis_base': this.stasis_base,
+			'api_url': parameters.api_url,
 			'responseHandler': this.responseHandler
 		});
 		this.asterisk = new AsteriskJs.Asterisk({'api': this.api});

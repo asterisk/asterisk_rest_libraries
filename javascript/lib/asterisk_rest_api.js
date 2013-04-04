@@ -22,12 +22,12 @@ AsteriskJs.AsteriskRESTAPI = function(parameters) {
 		this[key] = parameters[key];
 	}
 
-	if (!this.stasis_base) {
-		throw new Error("Can't call Asterisk REST API without stasis_base.");
+	if (!this.api_url) {
+		throw new Error("Can't call Asterisk REST API without api_url.");
 	}
 
-	if (!this.stasis_base.match(/https*:\/\/.+\/stasis\/*/i)) {
-		throw new Error("stasis_base value is invalid: " + this.stasis_base);
+	if (!this.api_url.match(/https*:\/\/.+\/stasis\/*/i)) {
+		throw new Error("api_url value is invalid: " + this.api_url);
 	}
 
 	this.call = function(params) {
@@ -38,7 +38,7 @@ AsteriskJs.AsteriskRESTAPI = function(parameters) {
 		responseHandler(response, data);
 
 		success indicates the success or failure of the Asterisk API call.
-		response is a dictionary constructed by json.dumps(json_string)
+		response is an associative array constructed by json.decode
 		error is a message.
 
 		If the API call is successful but Asterisk returns invalid JSON, error
@@ -66,7 +66,7 @@ AsteriskJs.AsteriskRESTAPI = function(parameters) {
 			params.path = params.path.replace(/\%s/ig, params.object_id);
 		}
 
-		var uri = this.stasis_base + params.path;
+		var uri = this.api_url + params.path;
 		var response;
 		var xhr = new XMLHttpRequest();
 

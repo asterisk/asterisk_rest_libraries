@@ -26,7 +26,6 @@ use AsteriskPl::Bridge;
 use AsteriskPl::Channel;
 use AsteriskPl::Endpoint;
 use AsteriskPl::Recording;
-use Data::Dumper;
 
 sub new {
 	# Initiate new AsteriskPy instance.
@@ -34,11 +33,9 @@ sub new {
 	# Raise requests.exceptions
 
 	my ($class, %self) = @_;
-	$self{'protocol'} = $self{'https'} ? 'https' : 'http';
-	$self{'stasis_base'} = sprintf("%s://%s:%s/stasis",
-		$self{'protocol'}, $self{'host'}, $self{'port'});
+
 	$self{'api'} = AsteriskPl::AsteriskRESTAPI->new(
-		'stasis_base' => $self{'stasis_base'}
+		'api_url' => $self{'api_url'}
 	);
 	$self{'asterisk'} = AsteriskPl::Asterisk->new('api' => $self{'api'});
 	bless \%self, $class;

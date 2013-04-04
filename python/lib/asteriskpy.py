@@ -26,25 +26,16 @@ from recording import Recording
 
 
 class AsteriskPy:
-    def __init__(self, host='localhost', port='8088', https=False):
+    def __init__(self, api_url='http://localhost:8088/stasis'):
         """Initiate new AsteriskPy instance.
 
-        Takes optional string host, string port, boolean https.
+        Takes optional string api_url which points to the REST API base URL.
         Raise requests.exceptions
 
         """
-        self._host = host
-        self._port = port
-        if https is False:
-            self._protocol = 'http'
-        else:
-            self._protocol = 'https'
-
-        self._stasis_base = "%s://%s:%s/stasis" \
-            % (self._protocol, self._host, self._port)
-        self._api = AsteriskRestAPI(uri=self._stasis_base)
+        self._api_url = api_url
+        self._api = AsteriskRestAPI(uri=self._api_url)
         self._asterisk = Asterisk(self._api)
-        # parameters for constructors of the other objects
 
     def get_info(self):
         """Return dict of Asterisk system information"""

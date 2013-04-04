@@ -116,7 +116,7 @@ def make_api_call_params(method):
     """Format the parameters to the call() method in asterisk_rest_api, the
     util module which handles HTTP requests to Asterisk."""
     params = ["'path': '%s'" % (method.path),
-             "'http_method': '%s'" % (method.http_method)]
+              "'http_method': '%s'" % (method.http_method)]
     if method.method_params:
         params.append("'parameters': params")
     if method.required_id:

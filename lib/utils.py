@@ -85,4 +85,3 @@ def wrap_line(text, width, indent_marker, indent_offset=0, indent_char=' ',
     return reduce(lambda line, word, width=width: '%s%s%s' %
                   (line, make_delimiter(line, word, width),
                   word), text.split(' '))
-
