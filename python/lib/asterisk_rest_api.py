@@ -66,7 +66,7 @@ class AsteriskRestAPI:
         if object_id is not None:
             request_uri = request_uri + "/%s" % (object_id)
 
-        print request_uri
+        print "uri is %s" % (request_uri)
         try:
             if http_method == 'GET':
                 resp = requests.get(request_uri, params=parameters)
@@ -86,7 +86,7 @@ class AsteriskRestAPI:
             result['error'] = "No response."
             return result
 
-        print resp.status_code
+        print "response is %s" % (resp.status_code)
         if resp.status_code in [418, 200]:
             result['success'] = True
         else:
