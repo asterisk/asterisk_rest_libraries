@@ -49,7 +49,7 @@ class Channel:
         if context_string:
             params['context'] = context_string
 
-        self._api.call('/api/channels', http_method='POST', parameters=params)
+        self._api.call('/channels', http_method='POST', parameters=params)
         is_success = True
         return is_success
 
@@ -57,8 +57,8 @@ class Channel:
         """Active channel; Delete (i.e. hangup) a channel"""
         params = {}
 
-        self._api.call('/api/channels/%s', http_method='DELETE',
-                       parameters=params, object_id=self.object_id)
+        self._api.call('/channels/%s', http_method='DELETE', parameters=params,
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -73,7 +73,7 @@ class Channel:
         if context_string:
             params['context'] = context_string
 
-        self._api.call('/api/channels/%s/dial', http_method='POST',
+        self._api.call('/channels/%s/dial', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -82,7 +82,7 @@ class Channel:
         """Exit application; continue execution in the dialplan"""
         params = {}
 
-        self._api.call('/api/channels/%s/continue', http_method='POST',
+        self._api.call('/channels/%s/continue', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -91,7 +91,7 @@ class Channel:
         """Reject a channel"""
         params = {}
 
-        self._api.call('/api/channels/%s/reject', http_method='POST',
+        self._api.call('/channels/%s/reject', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -100,7 +100,7 @@ class Channel:
         """Answer a channel"""
         params = {}
 
-        self._api.call('/api/channels/%s/answer', http_method='POST',
+        self._api.call('/channels/%s/answer', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -111,7 +111,7 @@ class Channel:
         if direction_string:
             params['direction'] = direction_string
 
-        self._api.call('/api/channels/%s/mute', http_method='POST',
+        self._api.call('/channels/%s/mute', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -122,22 +122,22 @@ class Channel:
         if direction_string:
             params['direction'] = direction_string
 
-        self._api.call('/api/channels/%s/unmute', http_method='POST',
+        self._api.call('/channels/%s/unmute', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
-    def record(self, name_string=None, max_duration_seconds_number='0',
-               max_silence_seconds_number='0', append_boolean='False',
+    def record(self, name_string=None, max_duration_seconds_int='0',
+               max_silence_seconds_int='0', append_boolean='False',
                beep_boolean='False', terminate_on_string='none'):
         """Record audio to/from a channel; Start a recording"""
         params = {}
         if name_string:
             params['name'] = name_string
-        if max_duration_seconds_number:
-            params['maxDurationSeconds'] = max_duration_seconds_number
-        if max_silence_seconds_number:
-            params['maxSilenceSeconds'] = max_silence_seconds_number
+        if max_duration_seconds_int:
+            params['maxDurationSeconds'] = max_duration_seconds_int
+        if max_silence_seconds_int:
+            params['maxSilenceSeconds'] = max_silence_seconds_int
         if append_boolean:
             params['append'] = append_boolean
         if beep_boolean:
@@ -145,7 +145,7 @@ class Channel:
         if terminate_on_string:
             params['terminateOn'] = terminate_on_string
 
-        self._api.call('/api/channels/%s/record', http_method='POST',
+        self._api.call('/channels/%s/record', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success

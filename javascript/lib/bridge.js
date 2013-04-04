@@ -53,7 +53,7 @@ AsteriskJs.Bridge = function(parameters) {
 		/* Active bridges; List active bridges */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/bridges',
+			'path': '/bridges',
 			'http_method': 'GET'
 		});
 		is_success = true;
@@ -64,7 +64,7 @@ AsteriskJs.Bridge = function(parameters) {
 		/* Active bridges; Create a new bridge */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/bridges',
+			'path': '/bridges',
 			'http_method': 'POST'
 		});
 		is_success = true;
@@ -75,7 +75,7 @@ AsteriskJs.Bridge = function(parameters) {
 		/* Individual bridge; Get bridge details */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/bridges/%s',
+			'path': '/bridges/%s',
 			'http_method': 'GET',
 			'object_id': this.object_id
 		});
@@ -87,7 +87,7 @@ AsteriskJs.Bridge = function(parameters) {
 		/* Individual bridge; Delete bridge */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/bridges/%s',
+			'path': '/bridges/%s',
 			'http_method': 'DELETE',
 			'object_id': this.object_id
 		});
@@ -102,7 +102,7 @@ AsteriskJs.Bridge = function(parameters) {
 			params['channel'] = channelStringArray;
 		}
 		is_success = this.api.call({
-			'path': '/api/bridges/%s/addChannel',
+			'path': '/bridges/%s/addChannel',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id
@@ -118,7 +118,7 @@ AsteriskJs.Bridge = function(parameters) {
 			params['channel'] = channelStringArray;
 		}
 		is_success = this.api.call({
-			'path': '/api/bridges/%s/removeChannel',
+			'path': '/bridges/%s/removeChannel',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id
@@ -127,19 +127,19 @@ AsteriskJs.Bridge = function(parameters) {
 		return is_success;
 	};
 
-	this.recordBridge = function(nameString, maxDurationSecondsNumber,
-			maxSilenceSecondsNumber, appendBoolean, beepBoolean,
+	this.recordBridge = function(nameString, maxDurationSecondsInt,
+			maxSilenceSecondsInt, appendBoolean, beepBoolean,
 			terminateOnString) {
 		/* Record audio to/from a bridge; Start a recording */
 		params = {};
 		if (nameString) {
 			params['name'] = nameString;
 		}
-		if (maxDurationSecondsNumber) {
-			params['maxDurationSeconds'] = maxDurationSecondsNumber;
+		if (maxDurationSecondsInt) {
+			params['maxDurationSeconds'] = maxDurationSecondsInt;
 		}
-		if (maxSilenceSecondsNumber) {
-			params['maxSilenceSeconds'] = maxSilenceSecondsNumber;
+		if (maxSilenceSecondsInt) {
+			params['maxSilenceSeconds'] = maxSilenceSecondsInt;
 		}
 		if (appendBoolean) {
 			params['append'] = appendBoolean;
@@ -151,7 +151,7 @@ AsteriskJs.Bridge = function(parameters) {
 			params['terminateOn'] = terminateOnString;
 		}
 		is_success = this.api.call({
-			'path': '/api/bridges/%s/record',
+			'path': '/bridges/%s/record',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id

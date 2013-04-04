@@ -53,7 +53,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Active channels; List active channels */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels',
+			'path': '/channels',
 			'http_method': 'GET'
 		});
 		is_success = true;
@@ -74,7 +74,7 @@ AsteriskJs.Channel = function(parameters) {
 			params['context'] = contextString;
 		}
 		is_success = this.api.call({
-			'path': '/api/channels',
+			'path': '/channels',
 			'http_method': 'POST',
 			'parameters': params
 		});
@@ -86,7 +86,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Active channel; Channel details */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels/%s',
+			'path': '/channels/%s',
 			'http_method': 'GET',
 			'object_id': this.object_id
 		});
@@ -98,7 +98,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Active channel; Delete (i.e. hangup) a channel */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels/%s',
+			'path': '/channels/%s',
 			'http_method': 'DELETE',
 			'object_id': this.object_id
 		});
@@ -120,7 +120,7 @@ AsteriskJs.Channel = function(parameters) {
 			params['context'] = contextString;
 		}
 		is_success = this.api.call({
-			'path': '/api/channels/%s/dial',
+			'path': '/channels/%s/dial',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id
@@ -133,7 +133,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Exit application; continue execution in the dialplan */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels/%s/continue',
+			'path': '/channels/%s/continue',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -145,7 +145,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Reject a channel */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels/%s/reject',
+			'path': '/channels/%s/reject',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -157,7 +157,7 @@ AsteriskJs.Channel = function(parameters) {
 		/* Answer a channel */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/channels/%s/answer',
+			'path': '/channels/%s/answer',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -172,7 +172,7 @@ AsteriskJs.Channel = function(parameters) {
 			params['direction'] = directionString;
 		}
 		is_success = this.api.call({
-			'path': '/api/channels/%s/mute',
+			'path': '/channels/%s/mute',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id
@@ -188,7 +188,7 @@ AsteriskJs.Channel = function(parameters) {
 			params['direction'] = directionString;
 		}
 		is_success = this.api.call({
-			'path': '/api/channels/%s/unmute',
+			'path': '/channels/%s/unmute',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id
@@ -197,19 +197,19 @@ AsteriskJs.Channel = function(parameters) {
 		return is_success;
 	};
 
-	this.recordChannel = function(nameString, maxDurationSecondsNumber,
-			maxSilenceSecondsNumber, appendBoolean, beepBoolean,
+	this.recordChannel = function(nameString, maxDurationSecondsInt,
+			maxSilenceSecondsInt, appendBoolean, beepBoolean,
 			terminateOnString) {
 		/* Record audio to/from a channel; Start a recording */
 		params = {};
 		if (nameString) {
 			params['name'] = nameString;
 		}
-		if (maxDurationSecondsNumber) {
-			params['maxDurationSeconds'] = maxDurationSecondsNumber;
+		if (maxDurationSecondsInt) {
+			params['maxDurationSeconds'] = maxDurationSecondsInt;
 		}
-		if (maxSilenceSecondsNumber) {
-			params['maxSilenceSeconds'] = maxSilenceSecondsNumber;
+		if (maxSilenceSecondsInt) {
+			params['maxSilenceSeconds'] = maxSilenceSecondsInt;
 		}
 		if (appendBoolean) {
 			params['append'] = appendBoolean;
@@ -221,7 +221,7 @@ AsteriskJs.Channel = function(parameters) {
 			params['terminateOn'] = terminateOnString;
 		}
 		is_success = this.api.call({
-			'path': '/api/channels/%s/record',
+			'path': '/channels/%s/record',
 			'http_method': 'POST',
 			'parameters': params,
 			'object_id': this.object_id

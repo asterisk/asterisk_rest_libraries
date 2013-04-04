@@ -42,7 +42,7 @@ class Recording:
         """Individual recording; Delete recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s', http_method='DELETE',
+        self._api.call('/recordings/%s', http_method='DELETE',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -51,7 +51,7 @@ class Recording:
         """Stop recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s/stop', http_method='POST',
+        self._api.call('/recordings/%s/stop', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -60,7 +60,7 @@ class Recording:
         """Pause recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s/pause', http_method='POST',
+        self._api.call('/recordings/%s/pause', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -69,7 +69,7 @@ class Recording:
         """Unpause recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s/unpause', http_method='POST',
+        self._api.call('/recordings/%s/unpause', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -78,7 +78,7 @@ class Recording:
         """Mute recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s/mute', http_method='POST',
+        self._api.call('/recordings/%s/mute', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -87,7 +87,7 @@ class Recording:
         """Unmute recording"""
         params = {}
 
-        self._api.call('/api/recordings/%s/unmute', http_method='POST',
+        self._api.call('/recordings/%s/unmute', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success

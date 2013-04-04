@@ -31,6 +31,7 @@ class Generator():
     def __init__(self):
         """Initiate Generator object"""
         self.classes = []
+        self.lang_tools = None
 
     def run(self, argv):
         """Make API self.classes
@@ -47,11 +48,12 @@ class Generator():
         methods_to_move = ['get', 'gets']
         asterisk_class = None
         if ((args['dir'] is None or args['dir'] == '')
-                and (args['url'] is None or args['url'] == '')) \
+                and (args['resource'] is None or args['resource'] == '')) \
                 or args['lang'] is None or args['lang'] == '':
             print "Usage: ./generate_library --lang=language ", \
                   "[--dir=/path/to/resources/ | ", \
-                  "--url=http://localhost:8088/stasis] "
+                  "--resource=", \
+                  "http://localhost:8088/stasis/api-docs/resources.json] "
             return 1
 
         self.lang_tools = __import__(args['lang'])
@@ -76,8 +78,8 @@ class Generator():
 
         if args['dir']:
             self.get_resources_from_dir(args['dir'], args['lang'])
-        elif args['url']:
-            self.get_resources_from_url(args['url'], args['lang'])
+        elif args['resource']:
+            self.get_resources_from_url(args['resource'], args['lang'])
 
         if len(self.classes) == 0:
             print "No resources found. Are you using Asterisk 12 or later?"
@@ -121,19 +123,19 @@ class Generator():
         license_content = get_file_content('LICENSE')
         write_file('%s/lib/LICENSE' % args['lang'], license_content)
 
-    def get_resources_from_url(self, url, lang):
+    def get_resources_from_url(self, resource, lang):
         """Get JSON Swagger resources from Asterisk and
         appends APIClass created from them to self.classes
 
         """
-        response = requests.get("%s/resources.json" % (url))
+        response = requests.get(resource)
         if response.status_code != 200:
             return
 
-        resources_list = json.loads(response.text)
-        for each_res in resources_list['apis']:
+        resources = json.loads(response.text)
+        for each_res in resources['apis']:
             each_res['path'] = re.sub('\{format\}', 'json', each_res['path'])
-            response = requests.get("%s%s" % (url, each_res['path']))
+            response = requests.get(resources['basePath'] + each_res['path'])
             if response.status_code != 200:
                 continue
 
@@ -150,12 +152,11 @@ class Generator():
 
         """
         resources_json = get_file_content("%s/resources.json" % (path))
-        resources_list = json.loads(resources_json)
-        for each_res in resources_list['apis']:
+        resources = json.loads(resources_json)
+        for each_res in resources['apis']:
             print each_res
             each_res['path'] = re.sub('\{format\}', 'json', each_res['path'])
-            json_string = get_file_content("%s%s" %
-                                           (path, each_res['path']))
+            json_string = get_file_content(path + each_res['path'])
             # Allow invalid JSON exception to be raised
             res = json.loads(json_string)
 

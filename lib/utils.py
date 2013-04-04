@@ -40,7 +40,7 @@ def parse_args(argv):
     argv.pop(0)
     args = {
         'dir': None,
-        'url': None,
+        'resource': None,
         'lang': 'python',
     }
     for a in argv:

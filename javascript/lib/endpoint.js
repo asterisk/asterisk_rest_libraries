@@ -56,7 +56,7 @@ AsteriskJs.Endpoint = function(parameters) {
 			params['withType'] = withTypeStringArray;
 		}
 		is_success = this.api.call({
-			'path': '/api/endpoints',
+			'path': '/endpoints',
 			'http_method': 'GET',
 			'parameters': params
 		});
@@ -68,7 +68,7 @@ AsteriskJs.Endpoint = function(parameters) {
 		/* Single endpoint; Details for an endpoint */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/endpoints/%s',
+			'path': '/endpoints/%s',
 			'http_method': 'GET',
 			'object_id': this.object_id
 		});

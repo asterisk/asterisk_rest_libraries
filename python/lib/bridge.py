@@ -42,7 +42,7 @@ class Bridge:
         """Active bridges; Create a new bridge"""
         params = {}
 
-        self._api.call('/api/bridges', http_method='POST', parameters=params)
+        self._api.call('/bridges', http_method='POST', parameters=params)
         is_success = True
         return is_success
 
@@ -50,8 +50,8 @@ class Bridge:
         """Individual bridge; Delete bridge"""
         params = {}
 
-        self._api.call('/api/bridges/%s', http_method='DELETE',
-                       parameters=params, object_id=self.object_id)
+        self._api.call('/bridges/%s', http_method='DELETE', parameters=params,
+                       object_id=self.object_id)
         is_success = True
         return is_success
 
@@ -61,7 +61,7 @@ class Bridge:
         if channel_string_list:
             params['channel'] = channel_string_list
 
-        self._api.call('/api/bridges/%s/addChannel', http_method='POST',
+        self._api.call('/bridges/%s/addChannel', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
@@ -72,22 +72,22 @@ class Bridge:
         if channel_string_list:
             params['channel'] = channel_string_list
 
-        self._api.call('/api/bridges/%s/removeChannel', http_method='POST',
+        self._api.call('/bridges/%s/removeChannel', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success
 
-    def record(self, name_string=None, max_duration_seconds_number='0',
-               max_silence_seconds_number='0', append_boolean='False',
+    def record(self, name_string=None, max_duration_seconds_int='0',
+               max_silence_seconds_int='0', append_boolean='False',
                beep_boolean='False', terminate_on_string='none'):
         """Record audio to/from a bridge; Start a recording"""
         params = {}
         if name_string:
             params['name'] = name_string
-        if max_duration_seconds_number:
-            params['maxDurationSeconds'] = max_duration_seconds_number
-        if max_silence_seconds_number:
-            params['maxSilenceSeconds'] = max_silence_seconds_number
+        if max_duration_seconds_int:
+            params['maxDurationSeconds'] = max_duration_seconds_int
+        if max_silence_seconds_int:
+            params['maxSilenceSeconds'] = max_silence_seconds_int
         if append_boolean:
             params['append'] = append_boolean
         if beep_boolean:
@@ -95,7 +95,7 @@ class Bridge:
         if terminate_on_string:
             params['terminateOn'] = terminate_on_string
 
-        self._api.call('/api/bridges/%s/record', http_method='POST',
+        self._api.call('/bridges/%s/record', http_method='POST',
                        parameters=params, object_id=self.object_id)
         is_success = True
         return is_success

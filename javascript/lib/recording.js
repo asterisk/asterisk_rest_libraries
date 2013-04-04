@@ -53,7 +53,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Recordings; List recordings */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings',
+			'path': '/recordings',
 			'http_method': 'GET'
 		});
 		is_success = true;
@@ -64,7 +64,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Individual recording; Get recording details */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s',
+			'path': '/recordings/%s',
 			'http_method': 'GET',
 			'object_id': this.object_id
 		});
@@ -76,7 +76,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Individual recording; Delete recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s',
+			'path': '/recordings/%s',
 			'http_method': 'DELETE',
 			'object_id': this.object_id
 		});
@@ -88,7 +88,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Stop recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s/stop',
+			'path': '/recordings/%s/stop',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -100,7 +100,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Pause recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s/pause',
+			'path': '/recordings/%s/pause',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -112,7 +112,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Unpause recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s/unpause',
+			'path': '/recordings/%s/unpause',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -124,7 +124,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Mute recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s/mute',
+			'path': '/recordings/%s/mute',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});
@@ -136,7 +136,7 @@ AsteriskJs.Recording = function(parameters) {
 		/* Unmute recording */
 		params = {};
 		is_success = this.api.call({
-			'path': '/api/recordings/%s/unmute',
+			'path': '/recordings/%s/unmute',
 			'http_method': 'POST',
 			'object_id': this.object_id
 		});

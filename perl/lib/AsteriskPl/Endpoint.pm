@@ -59,7 +59,7 @@ sub get_endpoints {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/endpoints',
+		'path' => '/endpoints',
 		'http_method' => 'GET'
 	});
 	$is_success = 1;
@@ -72,7 +72,7 @@ sub get_endpoint {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/endpoints/%s',
+		'path' => '/endpoints/%s',
 		'http_method' => 'GET',
 		'object_id' => $self->{'object_id'}
 	});

@@ -57,7 +57,7 @@ AsteriskJs.Asterisk = function(parameters) {
 			params['only'] = onlyStringArray;
 		}
 		is_success = this.api.call({
-			'path': '/api/asterisk/info',
+			'path': '/asterisk/info',
 			'http_method': 'GET',
 			'parameters': params
 		});

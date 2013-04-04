@@ -59,7 +59,7 @@ sub get_recordings {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings',
+		'path' => '/recordings',
 		'http_method' => 'GET'
 	});
 	$is_success = 1;
@@ -72,7 +72,7 @@ sub get_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s',
+		'path' => '/recordings/%s',
 		'http_method' => 'GET',
 		'object_id' => $self->{'object_id'}
 	});
@@ -86,7 +86,7 @@ sub delete_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s',
+		'path' => '/recordings/%s',
 		'http_method' => 'DELETE',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
@@ -101,7 +101,7 @@ sub stop_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s/stop',
+		'path' => '/recordings/%s/stop',
 		'http_method' => 'POST',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
@@ -116,7 +116,7 @@ sub pause_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s/pause',
+		'path' => '/recordings/%s/pause',
 		'http_method' => 'POST',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
@@ -131,7 +131,7 @@ sub unpause_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s/unpause',
+		'path' => '/recordings/%s/unpause',
 		'http_method' => 'POST',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
@@ -146,7 +146,7 @@ sub mute_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s/mute',
+		'path' => '/recordings/%s/mute',
 		'http_method' => 'POST',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
@@ -161,7 +161,7 @@ sub unmute_recording {
 
 	$params = {};
 	$is_success = $self->{'api'}->call({
-		'path' => '/api/recordings/%s/unmute',
+		'path' => '/recordings/%s/unmute',
 		'http_method' => 'POST',
 		'parameters' => $params,
 		'object_id' => $self->{'object_id'}
