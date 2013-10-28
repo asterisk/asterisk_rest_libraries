@@ -1,7 +1,0 @@
-    def {API_METHOD_NAME}({PARAMS}):
-{METHOD_COMMENTS}
-{BUILD_API_CALL_PARAMS}
-
-        self._api.call({API_CALL_PARAMS})
-        is_success = True
-        return is_success

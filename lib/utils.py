@@ -41,7 +41,7 @@ def parse_args(argv):
     args = {
         'dir': None,
         'resource': None,
-        'lang': 'python',
+        'lang': 'perl',
     }
     for a in argv:
         pieces = a.split("=", 1)
